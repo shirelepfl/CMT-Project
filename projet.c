@@ -9,8 +9,8 @@ git remote add origin https : // github.com/shirelepfl/CMT-Project.git
 #include <math.h>
 #include <string.h>
 
-// Macro to convert 3D indices (i,j,k) into a single 1D index.
-// This is because we store the 3D field u in a 1D array.
+// This is because we store the 3D field u in a 1D array, each point in our domain will be stored at a certain index in the 1d array; 
+// the index of each number is the IDX, with k being slices, y being rows and x being columns
 #define IDX(i, j, k) ((k) * Ny * Nx + (j) * Nx + (i))
 
 // Forward declarations of functions that we are gonna use in main()
@@ -380,6 +380,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
+
 
 
 
