@@ -20,8 +20,6 @@ void step_IMEX_ADI3D(double *u, double *tmp1, double *tmp2,
                      int Nx, int Ny, int Nz,
                      double dx, double dy, double dz,
                      double dt, double D, double r, double K, double lambda);
-double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
-                            double dx, double dy, double dz, double K);
 
 // Structure used to store one set of biological parameters
 typedef struct
@@ -29,23 +27,6 @@ typedef struct
     char name[32];
     double r, D, K, lambda;
 } Case;
-
-// Count the number of voxels where u > threshold.
-// This is useful to estimate the tumor-affected region.
-long count_affected(const double *u, int Nx, int Ny, int Nz, double threshold)
-{
-    long count = 0;
-    int Ntot = Nx * Ny * Nz;
-
-    for (int p = 0; p < Ntot; ++p)
-    {
-        if (u[p] > threshold)
-        {
-            count++;
-        }
-    }
-    return count;
-}
 
 int main(void)
 {
@@ -393,32 +374,3 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         }
     }
 }
-
-
-// Volume where u>= K/2
-// Calculates a median radius for the tumoral front in the 3d domain
-double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
-                            double dx, double dy, double dz, double K)
-{
-    double threshold = 0.75 * K; // denisty threshold is 0.75 * K (carrying capacity) 
-    double V = 0;            // volume initialization 
-
-    // counts how many voxels are above the threshold
-    for (int i = 0; i < Nx * Ny * Nz; i++)
-        if (u[i] >= threshold)
-            V += 1.0;
-  
-    // converts voxel count to a physical volume
-    V *= dx * dy * dz;
-
-
-    double R = pow(3.0 * V / (4.0 * M_PI), 1.0 / 3.0); // Inverted formula of V = (4/3) π R³ to get R, spherical radius corresponding to this volume
-
-    
-    return R;
-}
-
-
-
-
-
