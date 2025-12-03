@@ -9,9 +9,12 @@ git remote add origin https : // github.com/shirelepfl/CMT-Project.git
 #include <math.h>
 #include <string.h>
 
+// Macro to convert 3D indices (i,j,k) into a single 1D index.
+// This is because we store the 3D field u in a 1D array.
 #define IDX(i, j, k) ((k) * Ny * Nx + (j) * Nx + (i))
 
-                              static void thomas_solve(int N, const double *a, const double *b, const double *c, double *d);
+// Forward declarations of functions that we are gonna use in main()
+static void thomas_solve(int N, const double *a, const double *b, const double *c, double *d);
 static void build_tridiag_neumann_1D(int N, double alpha, double *a, double *b, double *c);
 void step_IMEX_ADI3D(double *u, double *tmp1, double *tmp2,
                      int Nx, int Ny, int Nz,
@@ -20,12 +23,15 @@ void step_IMEX_ADI3D(double *u, double *tmp1, double *tmp2,
 double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
                             double dx, double dy, double dz, double K);
 
+// Structure used to store one set of biological parameters
 typedef struct
 {
     char name[32];
     double r, D, K, lambda;
 } Case;
 
+// Count the number of voxels where u > threshold.
+// This is useful to estimate the tumor-affected region.
 long count_affected(const double *u, int Nx, int Ny, int Nz, double threshold)
 {
     long count = 0;
@@ -44,32 +50,40 @@ long count_affected(const double *u, int Nx, int Ny, int Nz, double threshold)
 int main(void)
 {
     // Baseline parameters (same for both profiles)
-    const double r_0 = 0.03;      // days^-1
-    const double D_0 = 0.5;       // mm^2/days
-    const double lambda_0 = 0.01; // days^-1
-    const double K_0 = 1e6;       // cells/mm^3 // vrai valeur K_0 = const double K_0 = 1e6;
+    const double r_0 = 0.03;      // average net proliferation rate days^-1
+    const double D_0 = 0.5;       // average effective diffusion mm^2/days
+    const double lambda_0 = 0.01; // average net immune clearance term days^-1
+    const double K_0 = 1e6;       // average carrying capacity cells/mm^3
 
-    const double T = 122.0; // days
+    // Total simulation time (days)
+    const double T = 122.0; 
+
+    // Number of grid points in each dimension
     int Nx = 60, Ny = 60, Nz = 60;
-    const double L = 120.0; // mm
 
+    // Physical domain size (mm)
+    const double L = 120.0;
+
+    // Spatial grid spacing
     const double dx = L / (Nx - 1);
     const double dy = L / (Ny - 1);
     const double dz = L / (Nz - 1);
+
+    // Time step and number of iterations
     double dt = 5;
     int Nt = (int)round(T / dt);
 
-    // Create the two cases
+    // Create the two cases: healthy and smoker
     Case cases[2];
 
-    // Healthy
+    // Healthy lung parameters → slower tumor growth, stronger immune clearance
     strcpy(cases[0].name, "healthy");
     cases[0].r = 0.8 * r_0;
     cases[0].D = 0.9 * D_0;
     cases[0].K = 0.85 * K_0;
     cases[0].lambda = 1.4 * lambda_0;
 
-    // Smoker
+    // Smoker lung parameters → faster growth, weaker immune clearance
     strcpy(cases[1].name, "smoker");
     cases[1].r = 1.5 * r_0;
     cases[1].D = 1.4 * D_0;
@@ -78,28 +92,31 @@ int main(void)
 
     const size_t Nxyz = (size_t)Nx * Ny * Nz;
 
-    // Allocate 3D arrays in flattened 1D form
+    // Allocate the 3D solution arrays (stored as 1D)
+    // u = current tumor cell density
+    // tmp1, tmp2 = work arrays used in ADI steps
     double *u = malloc(Nxyz * sizeof(double));
     double *tmp1 = malloc(Nxyz * sizeof(double));
     double *tmp2 = malloc(Nxyz * sizeof(double));
 
-    // Pré-calcul des coordonnées (évite i*dx etc. dans la triple boucle)
+    // Precompute coordinates to avoid recomputing i*dx many times
     double *x = malloc(Nx * sizeof(double));
     double *y = malloc(Ny * sizeof(double));
     double *z = malloc(Nz * sizeof(double));
 
-    for (int i = 0; i < Nx; ++i)
-        x[i] = i * dx;
-    for (int j = 0; j < Ny; ++j)
-        y[j] = j * dy;
-    for (int k = 0; k < Nz; ++k)
-        z[k] = k * dz;
-
+    for (int i = 0; i < Nx; ++i) x[i] = i * dx;
+    for (int j = 0; j < Ny; ++j) y[j] = j * dy;
+    for (int k = 0; k < Nz; ++k) z[k] = k * dz;
+  
+    // Center of the initial tumor
     const double xc = L / 2.0, yc = L / 2.0, zc = L / 2.0;
+
+    // Parameters for the initial 3D Gaussian tumor
     const double A0 = 1e5;
     const double sigma = 2.0;
     const double inv_2sigma2 = 1.0 / (2.0 * sigma * sigma);
 
+    // Loop over the two scenarios
     for (int ic = 0; ic < 2; ++ic)
     {
         double r = cases[ic].r;
@@ -107,7 +124,7 @@ int main(void)
         double K = cases[ic].K;
         double lambda = cases[ic].lambda;
 
-        // Initial Gaussian tumor (parallélisée)
+        // Build the initial Gaussian tumor profile
         for (int k = 0; k < Nz; ++k)
         {
             for (int j = 0; j < Ny; ++j)
@@ -125,19 +142,22 @@ int main(void)
 
         printf("=== Cas %s ===\n", cases[ic].name);
 
+        // Arrays to store the results for the CSV output
         double *t_vals = malloc((Nt + 1) * sizeof(double));
         long *count_vals = malloc((Nt + 1) * sizeof(long));
 
-        // Time loop (le plus coûteux → à optimiser dans step_IMEX_ADI3D aussi)
+        // Time-stepping loop
         for (int n = 0; n <= Nt; ++n)
         {
+            // Perform one IMEX-ADI time step
             step_IMEX_ADI3D(u, tmp1, tmp2,
                             Nx, Ny, Nz,
                             dx, dy, dz,
                             dt, D, r, K, lambda);
             double t = n * dt;
-            long count = 0;
 
+            // Count number of voxels with high density (u > 1 here)
+            long count = 0;
             for (int k = 0; k < Nz; ++k)
             {
                 for (int j = 0; j < Ny; ++j)
@@ -153,20 +173,21 @@ int main(void)
                 }
             }
 
-            // store results for this time step in csv
+            // Store the results for this time step in CSV
             t_vals[n] = t;
             count_vals[n] = count;
         }
 
+        // Save results into a CSV file named "<case>_results.csv"
         char filename[64];
         snprintf(filename, sizeof(filename), "%s_results.csv", cases[ic].name);
 
         FILE *f = fopen(filename, "w");
 
-        // write header
+        // Write header
         fprintf(f, "t,count\n");
 
-        // write values
+        // Write values
         for (int n = 0; n <= Nt; ++n)
         {
             fprintf(f, "%f,%ld\n", t_vals[n], count_vals[n]);
@@ -177,6 +198,8 @@ int main(void)
         free(t_vals);
         free(count_vals);
     }
+
+    // Free all allocated memory
     free(u);
     free(tmp1);
     free(tmp2);
@@ -187,63 +210,98 @@ int main(void)
     return 0;
 }
 
-// on résout Thomas en 3D, c'est une matrice tridiagonale A donc le triangle supérieur est a, puis la diagonale est b et puis dessous c'est c
-// et d est la solution, forme est Ax = d
-
+/* 
+Thomas algorithm solver
+This solves a tridiagonal linear system A x = d,
+where A has three diagonals: a (lower), b (main), c (upper).
+We overwrite d[] with the solution. 
+*/
 static void thomas_solve(int N, const double *a, const double *b, const double *c, double *d)
-{
+{    
+    // Temporary arrays (forward-sweep coefficients)
     double cp[N - 1];
     double dp[N]; // memory allocation function to save our tables
 
+    // First element
     cp[0] = c[0] / b[0];
     dp[0] = d[0] / b[0];
+
+    // Forward sweep: eliminate the lower diagonal
     for (int i = 1; i < N - 1; i++)
     {
         double denom = b[i] - a[i] * cp[i - 1];
         cp[i] = c[i] / denom;
         dp[i] = (d[i] - a[i] * dp[i - 1]) / denom;
-    } // cp[i] and dp[i] are the modified coefficients of the superior triangular system
+    } 
+    // cp[i] and dp[i] are the modified coefficients of the superior triangular system
+
+    // Last element of forward sweep
     dp[N - 1] = (d[N - 1] - a[N - 1] * dp[N - 2]) / (b[N - 1] - a[N - 1] * cp[N - 2]);
+
+    // Backward substitution
     d[N - 1] = dp[N - 1]; // solving the superior triangular system
     for (int i = N - 2; i >= 0; i--)
-        d[i] = dp[i] - cp[i] * d[i + 1]; // results are kept in d which is the solution matrix
+        d[i] = dp[i] - cp[i] * d[i + 1];   // results are kept in d which is the solution matrix
 }
 
+/*
+Build the coefficients of a 1D tridiagonal matrix with Neumann BCs.
+The matrix corresponds to (I - alpha * Laplacian_1D) under Neumann BCs.
+a = lower diagonal, b = main diagonal, c = upper diagonal
+*/
+
 static void build_tridiag_neumann_1D(int N, double alpha, double *a, double *b, double *c)
-{
-    for (int i = 0; i < N; i++)
-    {
+{    
+    // Initialize everything to identity matrix
+    for (int i = 0; i < N; i++){
         a[i] = 0;
         b[i] = 1;
         c[i] = 0;
     }
-    if (N == 1)
-    {
+
+    // Special cases for Neumann boundaries
+    if (N == 1){
         b[0] = 1;
         return;
     }
+
+    // First row (left Neumann BC)
     b[0] = 1 + 2 * alpha;
     c[0] = -2 * alpha;
-    for (int i = 1; i < N - 1; i++)
-    {
+
+    // Interior rows
+    for (int i = 1; i < N - 1; i++){
         a[i] = -alpha;
         b[i] = 1 + 2 * alpha;
         c[i] = -alpha;
     }
+
+    // Last row (right Neumann BC)
     a[N - 1] = -2 * alpha;
     b[N - 1] = 1 + 2 * alpha;
 }
 
+/*
+One IMEX-ADI time step in 3D.
+
+IMEX = reaction is explicit, diffusion is implicit.
+ADI = diffusion is split along X, then Y, then Z.
+
+u    = input/output array (3D field)
+tmp1 = first temporary array
+tmp2 = second temporary array
+*/
 void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict tmp2,
                      int Nx, int Ny, int Nz,
                      double dx, double dy, double dz,
                      double dt, double D, double r, double K, double lambda)
-{
+{   
+    // Diffusion coefficients in each direction
     double ax = dt * D / (dx * dx);
     double ay = dt * D / (dy * dy);
     double az = dt * D / (dz * dz);
 
-    // 1. réaction + YZ explicites
+    // 1. Explicit reaction + explicit Y and Z diffusion
     for (int k = 0; k < Nz; k++)
     {
         for (int j = 0; j < Ny; j++)
@@ -253,10 +311,10 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
                 int p = IDX(i, j, k);
                 double un = u[p];
 
-                // Terme de réaction (logistique - lambda*u)
+                // Logistic reaction term
                 double f = r * un * (1.0 - un / K) - lambda * un;
 
-                // Indices avec conditions de Neumann en y et z
+                // Find neighbors in y and z with Neumann BC
                 int jm = (j == 0) ? 1 : j - 1;
                 int jp = (j == Ny - 1) ? Ny - 2 : j + 1;
                 int km = (k == 0) ? 1 : k - 1;
@@ -270,7 +328,7 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         }
     }
 
-    // 2. X-implicite : on construit la tridiagonale sur la pile
+    // 2. Implicit solve in X direction
     {
         double ax_a[Nx], ax_b[Nx], ax_c[Nx];
         build_tridiag_neumann_1D(Nx, ax, ax_a, ax_b, ax_c);
@@ -279,21 +337,21 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         {
             for (int j = 0; j < Ny; j++)
             {
-                // extraire la ligne en x
+                // Extracting the row along x
                 for (int i = 0; i < Nx; i++)
                     tmp2[i] = tmp1[IDX(i, j, k)];
 
-                // résoudre
+                // Solve the tridiagonal system
                 thomas_solve(Nx, ax_a, ax_b, ax_c, tmp2);
 
-                // réinjecter
+                // Inject solution back
                 for (int i = 0; i < Nx; i++)
                     tmp1[IDX(i, j, k)] = tmp2[i];
             }
         }
     }
 
-    // 3. Y-implicite
+    // 3. Implicit solve in Y direction
     {
         double ay_a[Ny], ay_b[Ny], ay_c[Ny];
         build_tridiag_neumann_1D(Ny, ay, ay_a, ay_b, ay_c);
@@ -313,7 +371,7 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         }
     }
 
-    // 4. Z-implicite
+    // 4. Implicit solve in Z direction
     {
         double az_a[Nz], az_b[Nz], az_c[Nz];
         build_tridiag_neumann_1D(Nz, az, az_a, az_b, az_c);
@@ -336,15 +394,28 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
 
 // volume où u>=K/2  (utile pour front moyen)
 // calcule un rayon moyen du front tumoral dans le domaine 3D
+
+/*
+Compute an equivalent spherical radius from the volume where u >= 0.75*K.
+This gives a measure of tumor front position in 3D.
+*/
 double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
                             double dx, double dy, double dz, double K)
 {
-    double seuil = 0.75 * K; // seuil de densité -> moitié de la capacité maximale
+    double threshold = 0.75 * K; // seuil de densité -> moitié de la capacité maximale
     double V = 0;            // initialisation du volume
+
+    // Count how many voxels are above the threshold
     for (int i = 0; i < Nx * Ny * Nz; i++)
-        if (u[i] >= seuil)
+        if (u[i] >= threshold)
             V += 1.0;
+  
+    // Convert voxel count to a physical volume
     V *= dx * dy * dz;
+
+    // Convert volume to equivalent spherical radius
     double R = pow(3.0 * V / (4.0 * M_PI), 1.0 / 3.0); // Formule inversée de V = (4/3) π R³ pour obtenir R,rayon sphérique correspondant à ce volume
+    
     return R;
 }
+
