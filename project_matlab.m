@@ -1,92 +1,100 @@
-% ========================================================================
-% 3D LUNG MODEL + TUMOR SNAPSHOTS + GIF (CLEAN FIXED VERSION)
-% ========================================================================
 clear; close all; clc;
 
-% ===================== CREATE 3D LUNG GEOMETRY ========================
+% First, let's create the 3d lung geometry 
 
 [x,y,z] = meshgrid( ...
-    linspace(-11, 11, 100), ...
-    linspace(-7, 7, 100), ...
-    linspace(-24, 0, 100));
+    linspace(-11, 11, 100), ... % left-right length: 22cm corresponds to an average man lung 
+    linspace(-7, 7, 100), ... % front-back length: 14cm  
+    linspace(-24, 0, 100)); % % up-down length: 24cm 
+% the term "100" corresponds to the number of points along each line 
+    
 
-F_right = ((x-2)/3.5).^2 + (y/2.5).^2 + ((z+7)/6).^2 - 1;
-mask_right = F_right <= 0;
+F_right = ((x-2)/3.5).^2 + (y/2.5).^2 + ((z+7)/6).^2 - 1; % making the ellipsoid for each lung 
+mask_right = F_right <= 0; % defines which points of the domain are considered "the lung"; <=0 is inside, giving the cells inside the attribute "true" and the ones outside the attribute "false" 
 
-F_left = ((x+2)/3.2).^2 + (y/2.3).^2 + ((z+7)/6).^2 - 1;
+F_left = ((x+2)/3.2).^2 + (y/2.3).^2 + ((z+7)/6).^2 - 1; 
 mask_left = F_left <= 0;
 
-mask_lungs = mask_right | mask_left;
-lung_voxels = find(mask_lungs);
-Nvox = length(lung_voxels);
+mask_lungs = mask_right | mask_left; % combine the two ellipsoids 
+lung_voxels = find(mask_lungs); % gets all indices of the points that are in the mask of the lungs 
+Nvox = length(lung_voxels); % counts the number of lung voxels 
 
-lungs_val = double(mask_lungs);
+lungs_val = double(mask_lungs); % converts the "true" and "false" in the mask to 1 and 0, numerical values are needed for making the isosurface next 
 
-% ========================== LOAD CSV DATA =============================
+% loading the csv data obtained with the C code 
+
 healthy = readmatrix('healthy_results.csv');
 smoker  = readmatrix('smoker_results.csv');
 
-t_h = healthy(:,1); 
-c_h = healthy(:,2);
+t_h = healthy(:,1); % each time step for the healthy lung
+c_h = healthy(:,2); % each cell count for the healthy lung 
 
 t_s = smoker(:,1);
 c_s = smoker(:,2);
 
-% ========================= FOLDER + GIF SETUP ==========================
+% output folder and GIF making 
+
 output_folder = "frames_lungs";
 if ~exist(output_folder, "dir")
     mkdir(output_folder);
-end
+end 
+% if the folder does not exist, it creates it and if it does, it doesn't do anything 
+
 
 gif_name = "tumor_evolution.gif";
 if exist(gif_name,'file')
     delete(gif_name);
-end
+end 
+% if there already is a gif in the folder it deletes it and makes a new one
 
-% ======================= SCALING FACTOR ================================
+% scaling factor for visualisation, so the lung doesn't get full too soon but still has a cancer progress that can be seen clearly 
+
 scale = 14;   % 1 voxel = 100 cancer cells
 
-% ======================== GENERATE FRAMES ==============================
-fprintf("Generating images and GIF...\n");
-counter = 1;
+% generating the frames 
 
-% --------------------------- HEALTHY ------------------------------------
-for step = 1:length(t_h)
+counter = 1; % variable to keep track of which frame we are on, starting with the first 
 
-    Ntumor = round(c_h(step) / scale);
-    Ntumor = min(Nvox, max(0, Ntumor));
+% healthy case 
 
-    save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t_h(step),'HEALTHY',output_folder);
+for step = 1:length(t_h) % for each time step, or line in our csv file 
 
-    img = imread(sprintf('%s/frame_HEALTHY_%04d.png', output_folder, step));
-    [A,map] = rgb2ind(img,256);
+    Ntumor = round(c_h(step) / scale); % counts the number of tumorous voxels ( number of cancerous cells at the time step divided by the scale ) 
+    Ntumor = min(Nvox, max(0, Ntumor)); % keeps our Ntumor in a reasonable range, not more than the actual number of voxels in the lung but also not a negative number of cancerous cells 
+
+    save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t_h(step),'healthy',output_folder); % makes an 'image' with the state of the cancer at this time step 
+
+    img = imread(sprintf('%s/frame_healthy_%04d.png', output_folder, step)); % reads the PNG image we just created 
+    [A,map] = rgb2ind(img,256); % converts the RGB image to index colors 
 
     if counter == 1
-        imwrite(A,map,gif_name,'gif','LoopCount',inf,'DelayTime',0.18);
+        imwrite(A,map,gif_name,'gif','LoopCount',inf,'DelayTime',0.18); % creates the GIF, makes it loop forever (inf), pause 0.18 seconds between frames, the first one 'builds' the gif
     else
-        imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.18);
+        imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.18); % appends each image to the first one to create the whole GIF 
     end
 
-    counter = counter + 1;
+    counter = counter + 1; % indicates we are moving to the next frame 
 end
 
-% --------------------------- SMOKER ------------------------------------
+% smoker case, same structure of code as the one for healthy
+
 for step = 1:length(t_s)
 
     Ntumor = round(c_s(step) / scale);
     Ntumor = min(Nvox, max(0, Ntumor));
 
-    save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t_s(step),'SMOKER',output_folder);
+    save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t_s(step),'smoker',output_folder);
 
-    img = imread(sprintf('%s/frame_SMOKER_%04d.png', output_folder, step));
+    img = imread(sprintf('%s/frame_smoker_%04d.png', output_folder, step));
     [A,map] = rgb2ind(img,256);
     imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.18);
 end
 
-% ======================== SAVE FRAME FUNCTION ==========================
-function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder)
+% save frame function 
 
-    Tumor = zeros(size(lungs_val));
+function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder) % who = string, 'healthy' or 'smoker' 
+
+    Tumor = zeros(size(lungs_val)); % creates an array of 0  and 1, this will become the tumor mask 
 
     if Ntumor > 0
         idx = lung_voxels(1:Ntumor);   % deterministic
@@ -116,3 +124,4 @@ function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder)
     saveas(fig, filename);
     close(fig);
 end
+
