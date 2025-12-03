@@ -250,7 +250,7 @@ The matrix corresponds to (I - alpha * Laplacian_1D) under Neumann BCs.
 a = lower diagonal, b = main diagonal, c = upper diagonal
 */
 
-static void build_tridiag_matrx_1D(int N, double alpha, double *a, double *b, double *c)
+static void build_tridiag_matrix_1D(int N, double alpha, double *a, double *b, double *c)
 {    
     // Initialize everything to identity matrix
     for (int i = 0; i < N; i++){
@@ -304,17 +304,18 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
     // 1. Explicit reaction + explicit Y and Z diffusion
     for (int k = 0; k < Nz; k++)
     {
-        for (int j = 0; j < Ny; j++)
+        for (int j = 0; j < Ny; j++) // for loop on each axis going to the border of our domain
         {
             for (int i = 0; i < Nx; i++)
             {
-                int p = IDX(i, j, k);
-                double un = u[p];
+                int p = IDX(i, j, k);  // flattened index
+                double un = u[p];     // current value
 
                 // Logistic reaction term
-                double f = r * un * (1.0 - un / K) - lambda * un;
+                double f = r * un * (1.0 - un / K) - lambda * un; // this is the term without the Lagrangian, it is the net local growth rate of tumor cells
 
                 // Find neighbors in y and z with Neumann BC
+                // boundaries for the Neumann condition over y(j) and z(k)
                 int jm = (j == 0) ? 1 : j - 1;
                 int jp = (j == Ny - 1) ? Ny - 2 : j + 1;
                 int km = (k == 0) ? 1 : k - 1;
@@ -322,8 +323,9 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
 
                 double uy = u[IDX(i, jp, k)] - 2.0 * un + u[IDX(i, jm, k)];
                 double uz = u[IDX(i, j, kp)] - 2.0 * un + u[IDX(i, j, km)];
+                // approximation to solve the first part of FK
 
-                tmp1[p] = un + dt * f + ay * uy + az * uz;
+                tmp1[p] = un + dt * f + ay * uy + az * uz; // the new density of the local tumor cell from the last one (un) because it is a suite
             }
         }
     }
@@ -418,6 +420,7 @@ double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
     
     return R;
 }
+
 
 
 
