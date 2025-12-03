@@ -328,7 +328,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
             {
                 // Extracting the row along x
                 for (int i = 0; i < Nx; i++) // solve i for every possible j and k 
-                    tmp2[i] = tmp1[IDX(i, j, k)];
+                    tmp2[i] = tmp1[IDX(i, j, k)]; // take the current value in the 3d compressed array and store it in a 1d array
 
                 // Solve the tridiagonal system
                 thomas_solve(Nx, ax_a, ax_b, ax_c, tmp2);
@@ -380,6 +380,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
+
 
 
 
