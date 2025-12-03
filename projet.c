@@ -16,7 +16,7 @@ git remote add origin https : // github.com/shirelepfl/CMT-Project.git
 // Forward declarations of functions that we are gonna use in main()
 static void thomas_solve(int N, const double *a, const double *b, const double *c, double *d);
 static void build_tridiag_matrix_1D(int N, double alpha, double *a, double *b, double *c);
-void step_IMEX_ADI3D(double *u, double *tmp1, double *tmp2,
+void IMEX_ADI_3D(double *u, double *tmp1, double *tmp2,
                      int Nx, int Ny, int Nz,
                      double dx, double dy, double dz,
                      double dt, double D, double r, double K, double lambda);
@@ -131,7 +131,7 @@ int main(void)
         for (int n = 0; n <= Nt; ++n)
         {
             // Perform one IMEX-ADI time step
-            step_IMEX_ADI3D(u, tmp1, tmp2,
+            IMEX_ADI_3D(u, tmp1, tmp2,
                             Nx, Ny, Nz,
                             dx, dy, dz,
                             dt, D, r, K, lambda);
@@ -265,14 +265,19 @@ static void build_tridiag_matrix_1D(int N, double alpha, double *a, double *b, d
 /*
 One IMEX-ADI time step in 3D.
 
-IMEX = reaction is explicit, diffusion is implicit.
-ADI = diffusion is split along X, then Y, then Z.
+IMEX = IMplicit-EXplicit: 
+treat diffusion implicitly, treat reaction explicitly.
+
+ADI = Alternating Direction Implicit: 
+instead of solving a big 3D implicit system (costly), we split the implicit diffusion solve into 
+three 1-D implicit solves: first X, then Y, then Z. 
+Each of those is a tridiagonal system solvable efficiently with Thomas.
 
 u    = input/output array (3D field)
 tmp1 = first temporary array
 tmp2 = second temporary array
 */
-void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict tmp2,
+void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp2,
                      int Nx, int Ny, int Nz,
                      double dx, double dy, double dz,
                      double dt, double D, double r, double K, double lambda)
@@ -374,4 +379,5 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         }
     }
 }
+
 
