@@ -70,7 +70,7 @@ int main(void)
     const double dz = L / (Nz - 1);
 
     // Time step and number of iterations
-    double dt = 5;
+    double dt = 5;  // every 5 days
     int Nt = (int)round(T / dt);
 
     // Create the two cases: healthy and smoker
@@ -418,4 +418,5 @@ double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
     
     return R;
 }
+
 
