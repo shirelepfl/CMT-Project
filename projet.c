@@ -15,7 +15,7 @@ git remote add origin https : // github.com/shirelepfl/CMT-Project.git
 
 // Forward declarations of functions that we are gonna use in main()
 static void thomas_solve(int N, const double *a, const double *b, const double *c, double *d);
-static void build_tridiag_neumann_1D(int N, double alpha, double *a, double *b, double *c);
+static void build_tridiag_matrix_1D(int N, double alpha, double *a, double *b, double *c);
 void step_IMEX_ADI3D(double *u, double *tmp1, double *tmp2,
                      int Nx, int Ny, int Nz,
                      double dx, double dy, double dz,
@@ -250,7 +250,7 @@ The matrix corresponds to (I - alpha * Laplacian_1D) under Neumann BCs.
 a = lower diagonal, b = main diagonal, c = upper diagonal
 */
 
-static void build_tridiag_neumann_1D(int N, double alpha, double *a, double *b, double *c)
+static void build_tridiag_matrx_1D(int N, double alpha, double *a, double *b, double *c)
 {    
     // Initialize everything to identity matrix
     for (int i = 0; i < N; i++){
@@ -331,7 +331,7 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
     // 2. Implicit solve in X direction
     {
         double ax_a[Nx], ax_b[Nx], ax_c[Nx];
-        build_tridiag_neumann_1D(Nx, ax, ax_a, ax_b, ax_c);
+        build_tridiag_matrix_1D(Nx, ax, ax_a, ax_b, ax_c);
 
         for (int k = 0; k < Nz; k++)
         {
@@ -354,7 +354,7 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
     // 3. Implicit solve in Y direction
     {
         double ay_a[Ny], ay_b[Ny], ay_c[Ny];
-        build_tridiag_neumann_1D(Ny, ay, ay_a, ay_b, ay_c);
+        build_tridiag_matrix_1D(Ny, ay, ay_a, ay_b, ay_c);
 
         for (int k = 0; k < Nz; k++)
         {
@@ -374,7 +374,7 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
     // 4. Implicit solve in Z direction
     {
         double az_a[Nz], az_b[Nz], az_c[Nz];
-        build_tridiag_neumann_1D(Nz, az, az_a, az_b, az_c);
+        build_tridiag_matrix_1D(Nz, az, az_a, az_b, az_c);
 
         for (int j = 0; j < Ny; j++)
         {
@@ -418,5 +418,6 @@ double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
     
     return R;
 }
+
 
 
