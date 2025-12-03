@@ -94,34 +94,37 @@ end
 
 function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder) % who = string, 'healthy' or 'smoker' 
 
-    Tumor = zeros(size(lungs_val)); % creates an array of 0  and 1, this will become the tumor mask 
+    Tumor = zeros(size(lungs_val)); % creates an array of 0  and 1, this will become the tumor mask, 0 = no tumor, 1 = tumor voxel  
 
-    if Ntumor > 0
-        idx = lung_voxels(1:Ntumor);   % deterministic
-        Tumor(idx) = 1;
+    if Ntumor > 0 % if the tumor has at least one voxel 
+        idx = lung_voxels(1:Ntumor);   % take the first Ntumor lung voxel positions
+        Tumor(idx) = 1; % set them to one in the tumor mask, so mark them as tumorous 
     end
 
-    fv_tumor = isosurface(x,y,z,Tumor,0.5);
+    fv_tumor = isosurface(x,y,z,Tumor,0.5); % creates a 3D surface mesh around the tumor volume
 
-    fig = figure('Visible','off');
-    hold on;
+    fig = figure('Visible','off'); % creates a figure without showing it
+    hold on; % allows to add to add more surfaces on the figure 
 
-    fv_l = isosurface(x,y,z,lungs_val,0.5);
-    patch(fv_l,'FaceColor',[1 0.7 0.7],'EdgeColor','none','FaceAlpha',0.2);
+    fv_l = isosurface(x,y,z,lungs_val,0.5); % 3d mesh of the lung 
+    patch(fv_l,'FaceColor',[1 0.7 0.7],'EdgeColor','none','FaceAlpha',0.2); % draws it light pink with a transparency of 20 percent  
 
     if ~isempty(fv_tumor.vertices)
         patch(fv_tumor,'FaceColor',[1 0 0],'EdgeColor','none','FaceAlpha',0.9);
-    end
+    end 
+    % if the tumor mesh is not empty, draw it in red 
 
     daspect([1 1 1]);
     view(40,20);
     camlight headlight;
-
+    % 3d appearance 
+    
     title(sprintf('%s – t = %.1f days — %d tumor voxels', who, t, Ntumor));
-    axis off;
+    axis off; % removes axis for a better visualisation 
 
-    filename = sprintf('%s/frame_%s_%04d.png', folder, who, step);
-    saveas(fig, filename);
-    close(fig);
+    filename = sprintf('%s/frame_%s_%04d.png', folder, who, step); % filename for saving 
+    saveas(fig, filename); % writes the png file 
+    close(fig); % deletes the figure from memory 
 end
+
 
