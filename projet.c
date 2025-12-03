@@ -317,8 +317,9 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
     }
 
     // 2. Implicit solve in X direction
+  // since 3d solving is difficult, the IMEX ADI method does the thomas solve in each direction then recomputes 
     {
-        double ax_a[Nx], ax_b[Nx], ax_c[Nx];
+        double ax_a[Nx], ax_b[Nx], ax_c[Nx]; // the three diagonals: a is low, b is main and c is upper 
         build_tridiag_matrix_1D(Nx, ax, ax_a, ax_b, ax_c);
 
         for (int k = 0; k < Nz; k++)
@@ -326,7 +327,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
             for (int j = 0; j < Ny; j++)
             {
                 // Extracting the row along x
-                for (int i = 0; i < Nx; i++)
+                for (int i = 0; i < Nx; i++) // solve i for every possible j and k 
                     tmp2[i] = tmp1[IDX(i, j, k)];
 
                 // Solve the tridiagonal system
@@ -379,5 +380,6 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
+
 
 
