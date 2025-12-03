@@ -394,32 +394,30 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
     }
 }
 
-// volume où u>=K/2  (utile pour front moyen)
-// calcule un rayon moyen du front tumoral dans le domaine 3D
 
-/*
-Compute an equivalent spherical radius from the volume where u >= 0.75*K.
-This gives a measure of tumor front position in 3D.
-*/
+// Volume where u>= K/2
+// Calculates a median radius for the tumoral front in the 3d domain
 double compute_front_radius(const double *u, int Nx, int Ny, int Nz,
                             double dx, double dy, double dz, double K)
 {
-    double threshold = 0.75 * K; // seuil de densité -> moitié de la capacité maximale
-    double V = 0;            // initialisation du volume
+    double threshold = 0.75 * K; // denisty threshold is 0.75 * K (carrying capacity) 
+    double V = 0;            // volume initialization 
 
-    // Count how many voxels are above the threshold
+    // counts how many voxels are above the threshold
     for (int i = 0; i < Nx * Ny * Nz; i++)
         if (u[i] >= threshold)
             V += 1.0;
   
-    // Convert voxel count to a physical volume
+    // converts voxel count to a physical volume
     V *= dx * dy * dz;
 
-    // Convert volume to equivalent spherical radius
-    double R = pow(3.0 * V / (4.0 * M_PI), 1.0 / 3.0); // Formule inversée de V = (4/3) π R³ pour obtenir R,rayon sphérique correspondant à ce volume
+
+    double R = pow(3.0 * V / (4.0 * M_PI), 1.0 / 3.0); // Inverted formula of V = (4/3) π R³ to get R, spherical radius corresponding to this volume
+
     
     return R;
 }
+
 
 
 
