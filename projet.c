@@ -121,7 +121,7 @@ int main(void)
             }
         }
 
-        printf("=== Cas %s ===\n", cases[ic].name);
+        printf("=== %s case ===\n", cases[ic].name);
 
         // Arrays to store the results for the CSV output
         double *t_vals = malloc((Nt + 1) * sizeof(double));
@@ -374,3 +374,4 @@ void step_IMEX_ADI3D(double *restrict u, double *restrict tmp1, double *restrict
         }
     }
 }
+
