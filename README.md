@@ -2,16 +2,19 @@
 
 ## Project Description
 
-The aim of our project is to create a visual awareness compaign for smoke prevention for a young public. We created a code to compare 2 scenarios, 2 youngs but one is sportive, healthy and is in good shape and the other one smokes, has bad habits. Our C code made the calculations for cancer progression in cells using the KPP equation, also kown as Fisher equation. On the other end, our MatLab code plotted the results to model the spatial spreading of cancer cells.
+This project aims to create a visual awareness campaign on smoking prevention for a young audience. We developed a computational model comparing two scenarios: two young individuals of similar age, one athletic and healthy, and the other a smoker with unhealthy habits.
+
+A C program computes cancer cell progression using the KPP (Kolmogorov–Petrovsky–Piskunov) equation, also known as the Fisher equation. A MATLAB script then visualizes the results by modelling the spatial spread of cancer cells in lung tissue.
 
 ### Input files
 
-We didn't need to implement data from another file, we directly made assumptions of the initial values that were typical values for our cases.  
+No external datasets were required. All initial conditions and parameter values were based on typical values found in scientific literature and adapted to fit the two lifestyle scenarios.  
 
 ### Output files
 
-The C code generates 2 CSV files containing numbers of cancer cells at each time steps, we chose each 5 days on a total of 120 days.
-The MatLab code generates a gif of lungs with cells turning red when cancerous at each time step, for the healthy and smoker case. The gif generates them one after the other. It can be found in the output files on MatLab when clicking on the preview button.
+The C program generates two CSV files, each containing the number of cancer cells at successive time steps (every 5 days over a 120-day period).
+
+The MATLAB script produces a GIF animation showing lung tissue where cells progressively turn red when becoming cancerous. The animations are generated sequentially for both the healthy and smoker scenarios and can be found in MATLAB’s output files (preview mode).
 
 ### Report
 
@@ -24,12 +27,21 @@ Templates for .tex and .odt formats are provided in "docs/". The formatting can 
 On the C code, the libraries that need to be included are: stdio.h, stdlib.h, math.h and string.h. The version of MatLab we used is the one from 2025. 
 
 ### Build
-
-We used gcc to compile our C code on VS Code. 
+ 
+The C code is compiled with gcc on Visual Studio Code.
 
 ### Execute
 
-First the c program should be executed putting this line of code in a terminal running Bash : gcc -Wall project.c -o program -lm. And then putting ./program, we get the results. For MatLab just executed it the app.
+1. Compile the C program using a Bash terminal:
+```bash
+gcc -Wall project.c -o program -lm
+```
+
+2. Run the executable:
+```bash
+./program
+```
+For MATLAB, simply run the corresponding app or script.
 
 ## Contributors
 
@@ -39,16 +51,16 @@ Shirel Gelfged and Rebecca Levi.
 
 ### Data sources
 
-The initial range of values for the net proliferation rate, the effective diffusion, the carrying capacity and the net immune-clearance term are to be found on this article: https://www.researchgate.net/publication/7954500_A_hybrid_mathematical_model_of_solid_tumour_invasion_The_importance_of_cell_adhesion.
+Initial parameter ranges (net proliferation rate, effective diffusion, carrying capacity, and immune-clearance term) are based on: https://www.researchgate.net/publication/7954500_A_hybrid_mathematical_model_of_solid_tumour_invasion_The_importance_of_cell_adhesion.
 
-The coefficients associated with each of these initial values, mirroring the lifestyle of cancer progression, are found in these articles:
-For smoker lungs:
+Parameter coefficients reflecting lifestyle differences were obtained from:
+Smoker lungs:
 - the net proliferation rate coefficient value : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
 - the effective diffusion coefficient value : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
 - the carrying capacity coefficient value : https://www.sciencedirect.com/science/article/pii/S0024320512003402?via%3Dihub
 - the net immune-clearance term coefficient value : https://www.nature.com/articles/s41598-020-76556-7
 
-For healthy lungs:
+Healthy lungs:
 - the net proliferation rate coefficient value, (same source as smoker lungs) : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
 - the effective diffusion coefficient value, (same source as smoker lungs) : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
 - the carrying capacity coefficient value : https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1474770/full
@@ -57,4 +69,4 @@ For healthy lungs:
 
 ### Code
 
-To write our code, we received help from the assistants and ChatGPT version 5.1. We didn't use any available code on the internet already created.
+The code was written with help from the assistants and ChatGPT version 5.1. No pre-existing online codebases were used.
