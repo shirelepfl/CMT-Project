@@ -54,6 +54,7 @@ Shirel Gelfged and Rebecca Levi.
 Initial parameter ranges (net proliferation rate, effective diffusion, carrying capacity, and immune-clearance term) are based on: https://www.researchgate.net/publication/7954500_A_hybrid_mathematical_model_of_solid_tumour_invasion_The_importance_of_cell_adhesion.
 
 Parameter coefficients reflecting lifestyle differences were obtained from:
+
 Smoker lungs:
 - the net proliferation rate coefficient value : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
 - the effective diffusion coefficient value : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
