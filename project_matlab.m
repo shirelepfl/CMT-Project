@@ -87,7 +87,7 @@ for step = 1:length(t_s)
 
     img = imread(sprintf('%s/frame_smoker_%04d.png', output_folder, step));
     [A,map] = rgb2ind(img,256);
-    imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.24);
+    imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.30);
 end
 
 % save frame function 
@@ -126,6 +126,7 @@ function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder) % who 
     saveas(fig, filename); % writes the png file 
     close(fig); % deletes the figure from memory 
 end
+
 
 
 
