@@ -68,9 +68,9 @@ for step = 1:length(t_h) % for each time step, or line in our csv file
     [A,map] = rgb2ind(img,256); % converts the RGB image to index colors 
 
     if counter == 1
-        imwrite(A,map,gif_name,'gif','LoopCount',inf,'DelayTime',0.18); % creates the GIF, makes it loop forever (inf), pause 0.18 seconds between frames, the first one 'builds' the gif
+        imwrite(A,map,gif_name,'gif','LoopCount',inf,'DelayTime',0.24); % creates the GIF, makes it loop forever (inf), pause 0.18 seconds between frames, the first one 'builds' the gif
     else
-        imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.18); % appends each image to the first one to create the whole GIF 
+        imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.24); % appends each image to the first one to create the whole GIF 
     end
 
     counter = counter + 1; % indicates we are moving to the next frame 
@@ -87,7 +87,7 @@ for step = 1:length(t_s)
 
     img = imread(sprintf('%s/frame_smoker_%04d.png', output_folder, step));
     [A,map] = rgb2ind(img,256);
-    imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.18);
+    imwrite(A,map,gif_name,'gif','WriteMode','append','DelayTime',0.24);
 end
 
 % save frame function 
@@ -126,5 +126,6 @@ function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder) % who 
     saveas(fig, filename); % writes the png file 
     close(fig); % deletes the figure from memory 
 end
+
 
 
