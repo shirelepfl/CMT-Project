@@ -29,8 +29,7 @@ We used gcc to compile our C code on VS Code.
 
 ### Execute
 
-Describe how the program should be executed. Ideally, it will be automated to one line of code in a terminal running Bash (e.g., `matlab -batch src/myscript`), with the outputs generated to "results/".
-
+First the c program should be executed putting this line of code in a terminal running Bash : gcc -Wall project.c -o program -lm. And then putting ./program, we get the results. For MatLab just executed it the app.
 
 ## Contributors
 
@@ -40,7 +39,18 @@ Shirel Gelfged and Rebecca Levi.
 
 ### Data sources
 
-Describe sources of data here.
+In smoker lungs
+The net proliferation rate coefficient value : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
+The effective diffusion coefficient value : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
+The carrying capacity coefficient value : https://www.sciencedirect.com/science/article/pii/S0024320512003402?via%3Dihub
+The net immune-clearance term coefficient value : https://www.nature.com/articles/s41598-020-76556-7
+
+In healthy lungs
+The net proliferation rate coefficient value, (same source as smoker) : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
+The effective diffusion coefficient value, (same source as smoker) : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
+The carrying capacity coefficient value : https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1474770/full
+The net immune-clearance term coefficient value : https://sportsmedicine-open.springeropen.com/articles/10.1186/s40798-022-00419-w
+
 
 ### Code
 
