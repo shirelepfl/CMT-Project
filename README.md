@@ -11,7 +11,7 @@ We didn't need to implement data from another file, we directly made assumptions
 ### Output files
 
 The C code generates 2 CSV files containing numbers of cancer cells at each time steps, we chose each 5 days on a total of 120 days.
-The MatLab code generates a gif of lungs with cells turning red when cancerous at each time step, for the healthy and smoker case. (one after the other).  
+The MatLab code generates a gif of lungs with cells turning red when cancerous at each time step, for the healthy and smoker case. The gif generates them one after the other. It can be found in the output files on MatLab when clicking on the preview button.
 
 ### Report
 
@@ -21,19 +21,20 @@ Templates for .tex and .odt formats are provided in "docs/". The formatting can 
 
 ### Dependencies
 
-Describe the operating system, programs (MATLAB/Python/C), version numbers, and external packages that need to be installed to run the program. Canonically, it should run on the SIE Linux VDI, but if you require a different configuration (e.g., more updated MATLAB version) you can state it here.
+On the C code, the libraries that need to be included are: stdio.h, stdlib.h, math.h and string.h. The version of MatLab we used is the one from 2025. 
 
 ### Build
 
-Describe how the C program should be compiled (using gcc or mex). The executable or shared object file can be placed in the "bin/" directory.
+We used gcc to compile our C code on VS Code. 
 
 ### Execute
 
 Describe how the program should be executed. Ideally, it will be automated to one line of code in a terminal running Bash (e.g., `matlab -batch src/myscript`), with the outputs generated to "results/".
 
+
 ## Contributors
 
-List the authors of the code.
+Shirel Gelfged and Rebecca Levi. 
 
 ## Acknowledgments
 
