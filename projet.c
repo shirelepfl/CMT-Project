@@ -37,7 +37,7 @@ int main(void)
     const double K_0 = 1e6;       // average carrying capacity cells/mm^3
 
     // Total simulation time (days)
-    const double T = 122.0; 
+    const double T = 120.0; 
 
     // Number of grid points in each dimension
     int Nx = 60, Ny = 60, Nz = 60;
@@ -382,6 +382,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
+
 
 
 
