@@ -39,6 +39,8 @@ Shirel Gelfged and Rebecca Levi.
 
 ### Data sources
 
+The initial range of values for the net proliferation rate, the effective diffusion, the carrying capacity and the net immune-clearance term are to be found on this article: https://www.researchgate.net/publication/7954500_A_hybrid_mathematical_model_of_solid_tumour_invasion_The_importance_of_cell_adhesion.
+
 In smoker lungs:
 - the net proliferation rate coefficient value : https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/1097-0142%2820001001%2989%3A7%3C1457%3A%3AAID-CNCR7%3E3.0.CO%3B2-L
 - the effective diffusion coefficient value : https://onlinelibrary.wiley.com/doi/10.1155/2019/2025636
