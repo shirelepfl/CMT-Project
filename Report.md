@@ -33,7 +33,7 @@ We are using the Fisher-Kolmogorov (Fisher-KPP) equation to model the spatial sp
 
 $$
 \frac{\partial n}{\partial t}
-= D\\nabla^2 n + r\n\left(1-\frac{n}{K}\right)
+= D\\nabla^2 n + r\\\n\left(1-\frac{n}{K}\right)
 $$
 
 where n(x,t) represents the density of cancer cells, D is the diffusion coefficient, r the growth rate, and K the carrying capacity.
