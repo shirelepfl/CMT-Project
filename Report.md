@@ -59,8 +59,10 @@ For the healthy person we used:
 - $K_0$ * 0.85 : Healthy vasculature and lower angiogenic signaling lead to reduced abnormal blood vessel growth inside tumors, meaning the tumor receives less support. A decrease of about 15% is reasonable and consistent with exercise-related anti-angiogenic effects.
 - $\lambda_0$ * 1.4 : Exercise strengthens immune surveillance by increasing NK cell activity, boosting T-cell responses, and improving tumor recognition, which enhances immune-driven tumor killing. A 40% increase matches observed exercise-induced NK cell improvements.
   
-
 For each coefficient value, we relied on sources listed in the README file.
+
+For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time, https://pubmed.ncbi.nlm.nih.gov/8072198/ . 
+
 
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
 
