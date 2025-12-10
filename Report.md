@@ -70,6 +70,7 @@ To facilitate our calculations we modeled a Gaussian 3D tumor that starts near t
 $$
 u(x,0) = A\, e^{-\frac{(x - L/2)^2}{2\sigma^2}}
 $$
+
 We then use Neumann to make a 1D solution of our KPP equation and impose the condition of a flux equal to 0 at the frontiers ($\frac{\delta_u}{\delta_x}=0$)  of our domain since we want our cancer to stay inside the lungs. 
 
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
