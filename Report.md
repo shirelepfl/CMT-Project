@@ -29,6 +29,14 @@ To explore this, we modeled two hypothetical 20-year-old men. One leads a health
 
 Describe the approach taken to solve the problem. Include relevant mathematical relationships, models, algorithms, data, etc.  Is the model mechanistic or empirical (e.g., conservation equation, or a parametrized relationship between input and output)? Do you use the program for forecasting/prediction, or inference (e.g., understand model parameters)?
 
+We are using the Fisher-Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation is used to describe how cells evolve over time and space. The equation is written as
+$$
+\frac{\partial n}{\partial t}
+= D\,\nabla^2 n + r\,n\left(1-\frac{n}{K}\right)
+$$
+where n(x,t) represents the density of cancer cells, D is the diffusion coefficient, r the growth rate, and K the carrying capacity.
+The model used is hybrid: the diffusion term is mechanical, representing the physical spread of cells, while the logistic growth term is parametric, capturing empirical characteristics of tumor growth.
+
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
 
 # Results
