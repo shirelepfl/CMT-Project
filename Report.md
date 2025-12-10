@@ -71,8 +71,7 @@ $$
 u(x,0) = A\, e^{-\frac{(x - L/2)^2}{2\sigma^2}}
 $$
 
-We then use Neumann to make a 1D solution of our KPP equation and impose the condition of a flux equal to 0 at the frontiers ($\frac{\delta_u}{\delta_x}=0$)  of our domain since we want our cancer to stay inside the lungs. 
-
+We first apply Neumann boundary conditions to obtain a 1D solution of the KPP equation, imposing zero flux at the domain boundaries ($\frac{\delta_u}{\delta_x}=0$) to ensure that the cancer remains confined within the lungs. We then use the IMEX-ADI method, treating the reaction term implicitly–explicitly in each spatial direction, to extend this solution to 3D. Both methods are described in detail in the comments of our C code.
 
 # Results
 
