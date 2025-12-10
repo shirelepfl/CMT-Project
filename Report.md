@@ -14,19 +14,13 @@ In our final project, we made a slight departure from the original proposal whil
 
 # Introduction to the problem
 
- Have you ever wondered how quickly cancer cells can spread through the lungs? That question led us to build a computational model, written in MATLAB and C; that simulates how tumor cells invade lung tissue in 3D. By visualizing the spread, we can show what “early growth” looks like and how fast it can advance if nothing slows it down.
- 
-Why focus on the lungs? Lung cancer is one of the leading causes of cancer death worldwide. Most cases are linked to smoking, because cigarette smoke carries thousands of chemicals, dozens of which are known carcinogens. These substances damage the DNA of cells lining the airways, and over time that damage can build up into cancer. It’s not just cigarettes: secondhand smoke increases risk for people nearby, and vaping is not risk-free, heated aerosols still deliver toxic compounds that can harm the lungs. 
+Have you ever wondered how quickly cancer cells can spread through the lungs? This question inspired us to build a computational model; written in MATLAB and C; that simulates the 3D invasion of lung tissue by tumor cells. By visualizing this progression, we can illustrate what “early growth” looks like and how rapidly it can advance when nothing slows it down.
 
-Definition of project scope:
+We chose to focus on lung cancer because it remains one of the leading causes of cancer-related deaths worldwide. Smoking is the primary risk factor: cigarette smoke contains thousands of chemicals, including many well-known carcinogens that damage the DNA of airway cells. Over time, these mutations accumulate and can trigger cancer. The risk isn’t limited to active smokers, secondhand smoke also affects people nearby, and vaping, although often perceived as safer, still exposes the lungs to toxic compounds.
 
-- what processes will you include / exclude
-- what scenarios will you consider
+Raising awareness about lung cancer, especially among younger people, is crucial. Since smoking is a conscious behavior despite widely known consequences, a visual demonstration can have a stronger impact than statistics or warnings alone. Showing how cancer actually spreads inside the lungs may help make the danger more concrete.
 
-Sensibilisation of cancer and more exactly lung cancer, because it is often caused by something people do conciously and knowing the consequences, is extremely important. In order to make a greater impact on younger generations we decided a visualisation would be better. Visualising rather than hearing about such a problem will make them see really what is happening in their body as they smoke. 
-
-the two scenarios used are two relatively young, so about 20 years old, men. One of them lives a healthy lifestyle, so doing sports eating well and not smoking. The other one is more sedentary and heavy-smoking on a daily basis, we considered about a pack a day so 20. 
-
+To explore this, we modeled two hypothetical 20-year-old men. One leads a healthy lifestyle: regular exercise, good diet, and no smoking. The other is sedentary and smokes heavily, roughly one pack per day (about 20 cigarettes). Comparing these two scenarios allows us to highlight how lifestyle choices can dramatically influence cancer progression in lung tissue.
 
 
 
