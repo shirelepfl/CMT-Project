@@ -1,6 +1,6 @@
 ---
-title: Project Title
-author: Author list
+title: Lung Cancer Modelisation
+author: Shirel Gelfged, Rebecca Levi
 geometry: margin=2.5cm
 ---
 
