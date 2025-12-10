@@ -42,11 +42,12 @@ The model used is hybrid: the diffusion term is mechanical, representing the phy
 To calculate each 
 In our model each case starded with the same amount of cancer cells. 
 So we began with:
-- r0 = 0.03 day^-1
-- D0 = 0.5 mm^2 day^-1
-- K0 = 10^6 cells mm^-3
-- lambda0 = 0.01 days^-1
-as the intial parameters.
+- $r_0 = 0.03 \,\text{day}^{-1}$
+- $D_0 = 0.5 \,\text{mm}^2\,\text{day}^{-1}$
+- $K_0 = 10^6 \,\text{cells}\,\text{mm}^{-3}$
+- $\lambda_0 = 0.01 \,\text{day}^{-1}$
+
+as the initial parameters.
 For each case we multiplied these initial parameters by a coefficient corresponding to the change in the evolution of these parameters influenced by their lifestyles.
 
 
