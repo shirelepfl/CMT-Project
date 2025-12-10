@@ -43,6 +43,28 @@ gcc -Wall project.c -o program -lm
 ```
 For MATLAB, simply run the corresponding app or script.
 
+This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results.
+
+1. Clone the repository
+Open a terminal (or Command Prompt on Windows) and run:
+```bash
+git clone https://github.com/your_username/mon_projet.git
+cd mon_projet
+```
+2. Run on Linux / Mac / Git Bash
+ - Make the shell script executable (only once):
+```bash
+chmod +x run_project.sh
+```
+- Run the project:
+```bash
+./run_project.sh
+```
+3. Run on Windows
+```cmd
+run_project.bat
+```
+
 ## Contributors
 
 Shirel Gelfged and Rebecca Levi. 
