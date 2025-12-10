@@ -29,7 +29,7 @@ To explore this, we modeled two hypothetical 20-year-old men. One leads a health
 
 Describe the approach taken to solve the problem. Include relevant mathematical relationships, models, algorithms, data, etc.  Is the model mechanistic or empirical (e.g., conservation equation, or a parametrized relationship between input and output)? Do you use the program for forecasting/prediction, or inference (e.g., understand model parameters)?
 
-We are using the Fisher-Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation is used to describe how cells evolve over time and space. The equation is written as
+We use the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
 
 $$
 \frac{\partial n}{\partial t}
@@ -37,18 +37,16 @@ $$
 $$
 
 where n(x,t) represents the density of cancer cells, D is the diffusion coefficient, r the growth rate, and K the carrying capacity.
-The model used is hybrid: the diffusion term is mechanical, representing the physical spread of cells, while the logistic growth term is parametric, capturing empirical characteristics of tumor growth.
+Our model is hybrid: the diffusion term is mechanical, representing the physical spread of cells, while the logistic growth term is parametric, capturing empirical aspects of tumor development.
 
-To calculate each 
-In our model each case starded with the same amount of cancer cells. 
-So we began with:
+In both scenarios, we start with the same initial number of cancer cells. The baseline parameters we use are:
 - $r_0 = 0.03 \ \text{day}^{-1}$
 - $D_0 = 0.5 \ \text{mm}^2\ \text{day}^{-1}$
 - $K_0 = 10^6 \ \text{cells}\ \text{mm}^{-3}$
 - $\lambda_0 = 0.01 \ \text{day}^{-1}$
 
-as the initial parameters.
-For each case we multiplied these initial parameters by a coefficient corresponding to the change in the evolution of these parameters influenced by their lifestyles.
+Each scenario then applies a lifestyle-dependent coefficient to these baseline values, modifying the evolution of the parameters according to the individual’s habits.
+
 For the smoker person we used:
 - $r_0$ * 1.5 :  smoking and chronic inflammation increase reactive-oxygen species and mutation rate which will increase uncontrolled cell division to a factor ~ 50%; 
 - $D_0$ * 1.4 : smoking increases: epithelial-mesenchymal transition (EMT, a process where normal epithelial cells lose their tight connections and become more mobile and invasive), the activity of matrix metalloproteinases (MMP-2 and MMP-9) and as a result, there is more collagen breakdown, which weakens tissue structure making tumor cells more mobile and able to invade lung tissue. A 40% increase matches typical modeling choices in metastasis & EMT studies;
@@ -62,8 +60,7 @@ For the healthy person we used:
 - $\lambda_0$ * 1.4 : Exercise strengthens immune surveillance by increasing NK cell activity, boosting T-cell responses, and improving tumor recognition, which enhances immune-driven tumor killing. A 40% increase matches observed exercise-induced NK cell improvements.
   
 
-
-For each value, we used sources that are presented in the README file. 
+For each coefficient value, we relied on sources listed in the README file.
 
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
 
