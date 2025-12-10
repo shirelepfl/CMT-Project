@@ -42,18 +42,18 @@ The model used is hybrid: the diffusion term is mechanical, representing the phy
 To calculate each 
 In our model each case starded with the same amount of cancer cells. 
 So we began with:
-- $r_0 = 0.03 \,\text{day}^{-1}$
-- $D_0 = 0.5 \,\text{mm}^2\,\text{day}^{-1}$
-- $K_0 = 10^6 \,\text{cells}\,\text{mm}^{-3}$
-- $\lambda_0 = 0.01 \,\text{day}^{-1}$
+- $r_0 = 0.03 \ \text{day}^{-1}$
+- $D_0 = 0.5 \ \text{mm}^2\ \text{day}^{-1}$
+- $K_0 = 10^6 \ \text{cells}\ \text{mm}^{-3}$
+- $\lambda_0 = 0.01 \ \text{day}^{-1}$
 
 as the initial parameters.
 For each case we multiplied these initial parameters by a coefficient corresponding to the change in the evolution of these parameters influenced by their lifestyles.
 For the smoker person we used:
-- $r_0 * 1.5 :  smoking and chronic inflammation increase reactive-oxygen species and mutation rate which will increase uncontrolled cell division to a factor ~ 50%; 
-- $D_0 * 1.4: smoking increases: epithelial-mesenchymal transition (EMT, a process where normal epithelial cells lose their tight connections and become more mobile and invasive), the activity of matrix metalloproteinases (MMP-2 and MMP-9) and as a result, there is more collagen breakdown, which weakens tissue structure making tumor cells more mobile and able to invade lung tissue. A 40% increase matches typical modeling choices in metastasis & EMT studies;
-- $K_0 * 1.3 : Nicotine stimulates angiogenesis, the formation of new blood vessels. As a result, the development of new capillaries is enhanced, which can support tissue repair but also contribute to disease progression. More blood supply induces more oxygen/nutrients which means higher cell density supported. A 30% increase is a literature-aligned estimate; 
-- $\lambda_0 * 0.7 : smoking reduces cytotoxic T cell activity (T cells kill infected or malignant cells presenting specific peptide (MHC I)), NK cell response (Natural Killer (NK) cells are the immune system’s rapid-response bouncers), antigen presentation efficiency (how well a cell chops up proteins into peptides, loads them onto MHC ( I or II), and displays them so T cells can “see” them). Thus, the immune system kills fewer cancer cells. A 30% decrease is biologically plausible.
+- $r_0$ * 1.5 :  smoking and chronic inflammation increase reactive-oxygen species and mutation rate which will increase uncontrolled cell division to a factor ~ 50%; 
+- $D_0$ * 1.4: smoking increases: epithelial-mesenchymal transition (EMT, a process where normal epithelial cells lose their tight connections and become more mobile and invasive), the activity of matrix metalloproteinases (MMP-2 and MMP-9) and as a result, there is more collagen breakdown, which weakens tissue structure making tumor cells more mobile and able to invade lung tissue. A 40% increase matches typical modeling choices in metastasis & EMT studies;
+- $K_0$ * 1.3 : Nicotine stimulates angiogenesis, the formation of new blood vessels. As a result, the development of new capillaries is enhanced, which can support tissue repair but also contribute to disease progression. More blood supply induces more oxygen/nutrients which means higher cell density supported. A 30% increase is a literature-aligned estimate; 
+- $\lambda_0$ * 0.7 : smoking reduces cytotoxic T cell activity (T cells kill infected or malignant cells presenting specific peptide (MHC I)), NK cell response (Natural Killer (NK) cells are the immune system’s rapid-response bouncers), antigen presentation efficiency (how well a cell chops up proteins into peptides, loads them onto MHC ( I or II), and displays them so T cells can “see” them). Thus, the immune system kills fewer cancer cells. A 30% decrease is biologically plausible.
 
   
 
