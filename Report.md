@@ -77,10 +77,10 @@ We first apply Neumann boundary conditions to obtain a 1D solution of the KPP eq
 
 Describe the results. Give your assessment of whether they are reasonable - and how do you determine this?
 <img src="images/Healthy-t0.png" alt="Healthy lung at t=0" width="500">
-<img src="images/Healthy-t60.png" alt="Healthy lung at t=60" width="400">
-<img src="images/Healthy-t120.png" alt="Healthy lung at t=120" width="400">
 <img src="images/Smoker-t0.png" alt="Smoker lung at t=0" width="400">
+<img src="images/Healthy-t60.png" alt="Healthy lung at t=60" width="400">
 <img src="images/Smoker-t60.png" alt="Smoker lung at t=60" width="400">
+<img src="images/Healthy-t120.png" alt="Healthy lung at t=120" width="400">
 <img src="images/Smoker-t120.png" alt="Smoker lung at t=120" width="400">
 
 
