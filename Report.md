@@ -39,6 +39,15 @@ $$
 where n(x,t) represents the density of cancer cells, D is the diffusion coefficient, r the growth rate, and K the carrying capacity.
 The model used is hybrid: the diffusion term is mechanical, representing the physical spread of cells, while the logistic growth term is parametric, capturing empirical characteristics of tumor growth.
 
+To calculate each 
+In our model each case starded with the same amount of cancer cells. 
+So we began with:
+- r0 = 0.03 day^-1
+- D0 = 0.5 mm^2 day^-1
+- K0 = 10^6 cells mm^-3
+- lambda0 = 0.01 days^-1
+as the intial parameters.
+For each case we multiplied these initial parameters by a coefficient corresponding to the change in the evolution of these parameters influenced by their lifestyles.
 
 
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
