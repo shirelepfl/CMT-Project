@@ -10,11 +10,15 @@ With exception to Point 1, the final report should be a standalone document that
 
 # Deviations from project proposal
 
-    In our final project, we made a slight departure from the original proposal while keeping the same overall scope. We modeled two sets of young lungs; one healthy and one representing a smoker; both being invaded by cancer cells. The core of our approach relied on the Fisher-KPP equation. To make the simulations more manageable, we used Neumann boundary conditions and IMEX-ADI schemes, which allowed us to extend our model from 1D to 3D. We did not use the GitHub code provided by Mr. Hernandez. The project followed the timeline outlined in the proposal, and the overall structure and objectives remained consistent with our initial plan.
+In our final project, we made a slight departure from the original proposal while keeping the same overall scope. We modeled two sets of young lungs; one healthy and one representing a smoker; both being invaded by cancer cells. The core of our approach relied on the Fisher-KPP equation. To make the simulations more manageable, we used Neumann boundary conditions and IMEX-ADI schemes, which allowed us to extend our model from 1D to 3D. We did not use the GitHub code provided by Mr. Hernandez. The project followed the timeline outlined in the proposal, and the overall structure and objectives remained consistent with our initial plan.
 
 # Introduction to the problem
 
 Why would anyone be interested in this topic: curiosity, societal implications, development of the technology? Provide citation to literature where appropriate.
+
+ Have you ever wondered how quickly cancer cells can spread through the lungs? That question led us to build a computational model, written in MATLAB and C—that simulates how tumor cells invade lung tissue in 3D. By visualizing the spread, we can show what “early growth” looks like and how fast it can advance if nothing slows it down.
+ 
+Why focus on the lungs? Lung cancer is one of the leading causes of cancer death worldwide. Most cases are linked to smoking, because cigarette smoke carries thousands of chemicals—dozens of them are known carcinogens. These substances damage the DNA of cells lining the airways, and over time that damage can build up into cancer. It’s not just cigarettes: secondhand smoke increases risk for people nearby, and vaping is not risk-free—heated aerosols still deliver toxic compounds that can harm the lungs
 
 Definition of project scope:
 
