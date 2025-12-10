@@ -63,6 +63,7 @@ For each coefficient value, we relied on sources listed in the README file.
 
 For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time, https://pubmed.ncbi.nlm.nih.gov/8072198/ . 
 
+The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
 
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
 
