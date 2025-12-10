@@ -14,18 +14,22 @@ In our final project, we made a slight departure from the original proposal whil
 
 # Introduction to the problem
 
-Why would anyone be interested in this topic: curiosity, societal implications, development of the technology? Provide citation to literature where appropriate.
-
- Have you ever wondered how quickly cancer cells can spread through the lungs? That question led us to build a computational model, written in MATLAB and C—that simulates how tumor cells invade lung tissue in 3D. By visualizing the spread, we can show what “early growth” looks like and how fast it can advance if nothing slows it down.
+ Have you ever wondered how quickly cancer cells can spread through the lungs? That question led us to build a computational model, written in MATLAB and C; that simulates how tumor cells invade lung tissue in 3D. By visualizing the spread, we can show what “early growth” looks like and how fast it can advance if nothing slows it down.
  
-Why focus on the lungs? Lung cancer is one of the leading causes of cancer death worldwide. Most cases are linked to smoking, because cigarette smoke carries thousands of chemicals—dozens of them are known carcinogens. These substances damage the DNA of cells lining the airways, and over time that damage can build up into cancer. It’s not just cigarettes: secondhand smoke increases risk for people nearby, and vaping is not risk-free—heated aerosols still deliver toxic compounds that can harm the lungs
+Why focus on the lungs? Lung cancer is one of the leading causes of cancer death worldwide. Most cases are linked to smoking, because cigarette smoke carries thousands of chemicals, dozens of which are known carcinogens. These substances damage the DNA of cells lining the airways, and over time that damage can build up into cancer. It’s not just cigarettes: secondhand smoke increases risk for people nearby, and vaping is not risk-free, heated aerosols still deliver toxic compounds that can harm the lungs. 
 
 Definition of project scope:
 
 - what processes will you include / exclude
 - what scenarios will you consider
 
-*Note that novelty of the question, approach, or finding is not a requirement for this project.*
+Sensibilisation of cancer and more exactly lung cancer, because it is often caused by something people do conciously and knowing the consequences, is extremely important. In order to make a greater impact on younger generations we decided a visualisation would be better. Visualising rather than hearing about such a problem will make them see really what is happening in their body as they smoke. 
+
+the two scenarios used are two relatively young, so about 20 years old, men. One of them lives a healthy lifestyle, so doing sports eating well and not smoking. The other one is more sedentary and heavy-smoking on a daily basis, we considered about a pack a day so 20. 
+
+
+
+
 
 # Approach used
 
