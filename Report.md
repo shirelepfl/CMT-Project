@@ -65,6 +65,12 @@ For our simulation time we chose 4 months so about 120 days; this value correspo
 
 The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
 
+To facilitate our calculations we modeled a Gaussian 3D tumor that starts near the center of our domain, centered in x = L/2. We stated A = 10^5 cell/mm^3 which is a viable maximal density for cells (usually it’s about 10^6) and sigma = 2 mm, a viable tumor focus. These two values represent well a starting tumor.    
+
+$$
+u(x,0) = A\, e^{-\frac{(x - L/2)^2}{2\sigma^2}}
+$$
+
 Provide citation to literature where appropriate, particularly to compare your approach to existing work (whether it is similar or different).
 
 # Results
