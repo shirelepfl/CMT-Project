@@ -114,6 +114,12 @@ From an initial ratio of 1.5x to 2.25x more tumor cells in the smoker, we see a 
 
 Summarize the approach taken and the answer to the question set out in the problem statement. Describe limitations of the work (outlook) and how it could be improved.
 
+In our code, we used the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. To solve this equation, we applied Neumann boundary conditions to obtain a 1D solution, which was then extended to 3D using the IMEX-ADI method. The evolution of cancer cells was visualized at each time step in MATLAB as a series of images compiled into GIFs.
+
+These visualizations allow us to clearly demonstrate the impact of lifestyle choices on lung health. From our simulations, it is evident that smoking significantly accelerates cancer cell proliferation: by the end of the simulation, a person who smokes heavily and is in poor physical condition has 2.25 times more cancer cells in the lungs than a healthy, non-smoking individual. This provides a compelling and understandable illustration of the health risks associated with smoking.
+
+Our study does have limitations, however. The mathematical model is complex and relies on several simplifying assumptions, which may affect the precision of the results.
+
 # Authorship statement
 
 Our team collaborated closely, meeting for several hours each week. As a result, the project was a collective effort, and the code, text, and other contributions cannot be attributed to any one person.
