@@ -1,12 +1,7 @@
 ---
 title: Lung Cancer Modelisation
 author: Shirel Gelfged, Rebecca Levi
-geometry: margin=2.5cm
 ---
-
-The final report should be approximately 5 pages without references and authorship statement, but this is not a hard limit. However, if many figures are generated, they can be included in the appendix to keep the main report centered around the main conclusions. 
-
-With exception to Point 1, the final report should be a standalone document that can be read independently of the project proposal (i.e., your client should be able to understand the project without having to refer back to the original proposal). Therefore, you may reuse (i.e., copy) parts of your project proposal here. The report should be written in a professional manner suitable for submission to a client or publication.
 
 # Deviations from project proposal
 
