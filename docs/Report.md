@@ -27,8 +27,6 @@ To explore this, we modeled two hypothetical 20-year-old men. One leads a health
 
 # Approach used
 
-Describe the approach taken to solve the problem. Include relevant mathematical relationships, models, algorithms, data, etc.  Is the model mechanistic or empirical (e.g., conservation equation, or a parametrized relationship between input and output)? Do you use the program for forecasting/prediction, or inference (e.g., understand model parameters)?
-
 We use the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
 
 $$
@@ -112,13 +110,11 @@ From an initial ratio of 1.5x to 2.25x more tumor cells in the smoker, we see a 
 
 # Conclusion and outlook
 
-Summarize the approach taken and the answer to the question set out in the problem statement. Describe limitations of the work (outlook) and how it could be improved.
-
 In our code, we used the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. To solve this equation, we applied Neumann boundary conditions to obtain a 1D solution, which was then extended to 3D using the IMEX-ADI method. The evolution of cancer cells was visualized at each time step in MATLAB as a series of images compiled into GIFs.
 
 These visualizations allow us to clearly demonstrate the impact of lifestyle choices on lung health. From our simulations, it is evident that smoking significantly accelerates cancer cell proliferation: by the end of the simulation, a person who smokes heavily and is in poor physical condition has 2.25 times more cancer cells in the lungs than a healthy, non-smoking individual. This provides a compelling and understandable illustration of the health risks associated with smoking.
 
-Our study does have limitations, however. The mathematical model is complex and relies on several simplifying assumptions, which may affect the precision of the results.
+Our study does have limitations, however. The mathematical model is complex and relies on several simplifying assumptions, which may affect the precision of the results. 
 
 # Authorship statement
 
@@ -127,3 +123,4 @@ Our team collaborated closely, meeting for several hours each week. As a result,
 # References
 
 [1] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
+The rest of the citations that we mentioned for the approximation made can be found in the README file. 
