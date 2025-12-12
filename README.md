@@ -37,6 +37,7 @@ This project consists of a C simulation (C_code.c) that generates CSV data and a
 1. Open a terminal and navigate to the project folder:
 
 ```bash
+git clone https://github.com/your_username/mon_projet.git
 cd CMT-Project
 ```
 
