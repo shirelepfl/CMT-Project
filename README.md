@@ -32,37 +32,24 @@ The C code is compiled with gcc on Visual Studio Code.
 
 ### Execute
 
-1. Compile the C program using a Bash terminal:
-```bash
-gcc -Wall project.c -o program -lm
-```
-
-2. Run the executable:
-```bash
-./program
-```
-For MATLAB, simply run the corresponding app or script.
-
 This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results.
 
-1. Clone the repository
-Open a terminal (or Command Prompt on Windows) and run:
+1. Open a terminal and navigate to the project folder:
+
 ```bash
-git clone https://github.com/your_username/mon_projet.git
 cd mon_projet
 ```
-2. Run on Linux / Mac / Git Bash
- - Make the shell script executable (only once):
+
+2. Make the run script executable:
+
 ```bash
-chmod +x run_project.sh
+chmod u+x run_project.sh
 ```
-- Run the project:
+
+3. Run the project:
+
 ```bash
 ./run_project.sh
-```
-3. Run on Windows
-```cmd
-run_project.bat
 ```
 
 ## Contributors
