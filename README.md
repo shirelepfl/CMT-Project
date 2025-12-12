@@ -30,6 +30,8 @@ On the C code, the libraries that need to be included are: stdio.h, stdlib.h, ma
  
 The C code is compiled with gcc on Visual Studio Code.
 
+gcc- 
+
 ### Execute
 
 This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results.
