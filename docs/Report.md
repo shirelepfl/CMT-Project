@@ -114,7 +114,7 @@ In our code, we used the Fisher–Kolmogorov (Fisher-KPP) equation to model the 
 
 These visualizations allow us to clearly demonstrate the impact of lifestyle choices on lung health. From our simulations, it is evident that smoking significantly accelerates cancer cell proliferation: by the end of the simulation, a person who smokes heavily and is in poor physical condition has 2.25 times more cancer cells in the lungs than a healthy, non-smoking individual. This provides a compelling and understandable illustration of the health risks associated with smoking.
 
-Our study does have limitations, however. The mathematical model is complex and relies on several simplifying assumptions, which may affect the precision of the results. 
+Our study does have limitations, however. The mathematical model is complex and relies on several simplifying assumptions, which may affect the precision of the results. It could be improved by using smaller time steps for increased accuracy, incorporating additional biological factors, and validating the simulations against real data. Furthermore, advanced 3D visualizations could make the results more precise and easier to interpret.
 
 # Authorship statement
 
