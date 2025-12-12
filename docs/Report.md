@@ -79,16 +79,25 @@ In MATLAB, we simulated the lungs in 3D. Using the data from the CSV file genera
 
 Describe the results. Give your assessment of whether they are reasonable - and how do you determine this?
 
-
-![Healthy lung at t=0](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t0.png) ![Smoker lung at t=0](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t0.png) 
+<p float="left">
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t0.png" alt="Healthy lung at t=0" width="45%" />
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t0.png" alt="Smoker lung at t=0" width="45%" />
+</p>
 
 At the initial time (t=0), both the healthy and smoker lungs have a similar number of tumor voxels, ranging from 155 to 239. The smoker has about 1.5 times more tumor voxels. 
 
-![Healthy lung at t=60](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t60.png) ![Smoker lung at t=0](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t60.png) 
+<p float="left">
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t60.png" alt="Healthy lung at t=60" width="45%" />
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t60.png" alt="Smoker lung at t=60" width="45%" />
+</p>
 
 By day 60 (t=60), the difference in tumor progression becomes noticeable. The healthy lung has 1,958 tumor voxels, while the smoker’s lung has 3,935. This shows that the smoker has twice as many tumor cells at this stage. 
 
-![Healthy lung at t=120](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t120.png) ![Smoker lung at t=120](https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t120.png)
+
+<p float="left">
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Healthy-t120.png" alt="Healthy lung at t=120" width="45%" />
+  <img src="https://raw.githubusercontent.com/shirelepfl/CMT-Project/main/images/Smoker-t120.png" alt="Smoker lung at t=120" width="45%" />
+</p>
 
 At day 120 (t=120), the difference is even more pronounced. The smoker’s lung now has 10,401 tumor voxels, compared to 4,616 in the healthy lung. The smoker’s lung contains 2.25 times as many tumor cells. 
 
