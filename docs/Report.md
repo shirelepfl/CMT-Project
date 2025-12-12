@@ -68,7 +68,7 @@ The 3D computational grid contains 60 points in each spatial dimension, covering
 To facilitate our calculations we modeled a Gaussian 3D tumor that starts near the center of our domain, centered in x = L/2. We stated A = $10^5 \ \text{cells}\ \text{mm}^{-3}$ which is a viable maximal density for cells (usually it’s about $10^6$) and sigma = 2 mm, a viable tumor focus. These two values represent well a starting tumor.    
 
 $$
-u(x,0) = A\, e^{-\frac{(x - L/2)^2}{2\sigma^2}}
+u(x,0) = A\ e^{-\frac{(x - L/2)^2}{2\sigma^2}}
 $$
 
 We first apply Neumann boundary conditions to obtain a 1D solution of the KPP equation, imposing zero flux at the domain boundaries ($\frac{\delta_u}{\delta_x}=0$) to ensure that the cancer remains confined within the lungs. We then use the IMEX-ADI method, treating the reaction term implicitly–explicitly in each spatial direction, to extend this solution to 3D. Both methods are described in detail in the comments of our C code.
