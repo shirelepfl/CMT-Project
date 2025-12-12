@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# Supprimer d'anciens fichiers pour repartir propre
-rm -f healthy_results.csv smoker_results.csv tumor_evolution.gif
-rm -rf frames_lungs
+# Compile the C program located in src/
+gcc -O2 -o src/tumor_simulation src/main.c -lm
 
-# Compile the C code
-gcc -O2 -o tumor_simulation C_code.c -lm
+# Run the C simulation (output will appear in the project folder)
+./src/tumor_simulation
 
-# Run the C simulation
-./tumor_simulation
-
-# Run the MATLAB script (without opening GUI)
-matlab -nodisplay -nosplash -r "run('Matlab_code.m'); exit;"
+# Run the MATLAB script located in src/
+/usr/local/bin/matlab-2021b -batch "run('src/make_gif.m')"
