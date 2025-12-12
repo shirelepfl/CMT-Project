@@ -1,8 +1,6 @@
-git remote add origin https : // github.com/shirelepfl/CMT-Project.git
-                              git branch -
-                              M main
-                                  git push -
-                              u origin main
+git remote add origin https://github.com/shirelepfl/CMT-Project.git
+git branch -M main
+git push -u origin main
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -382,6 +380,7 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
+
 
 
 
