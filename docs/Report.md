@@ -116,7 +116,7 @@ Summarize the approach taken and the answer to the question set out in the probl
 
 # Authorship statement
 
-Describe contributions of each student on the team to the project in terms of writing of code and report, or project management.
+Our team collaborated closely, meeting for several hours each week. As a result, the project was a collective effort, and the code, text, and other contributions cannot be attributed to any one person.
 
 # References
 
