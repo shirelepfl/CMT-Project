@@ -61,7 +61,7 @@ For the healthy person we used:
   
 For each coefficient value, we relied on sources listed in the README file.
 
-For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time, https://pubmed.ncbi.nlm.nih.gov/8072198/ . 
+For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [1]. 
 
 The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
 
@@ -120,4 +120,4 @@ Our team collaborated closely, meeting for several hours each week. As a result,
 
 # References
 
-List all references cited in the report in a consistent format. Every reference should have a citation in the text, and every citation in the text should have a corresponding reference.
+[1] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
