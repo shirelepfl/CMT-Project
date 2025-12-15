@@ -47,7 +47,7 @@ if [ ! -f "~/CMT-Project/results/healthy_results.csv" ] || [ ! -f "~/CMT-Project
     
     # Compiler le programme C
     echo "Compilation du programme C..."
-    gcc -O2 -o results/output ~/CMT-Project/src/C_code.c -lm
+    gcc -O2 -o ~/CMT-Project/results/output ~/CMT-Project/src/C_code.c -lm
     if [ $? -ne 0 ]; then
         echo "Erreur lors de la compilation du programme C."
         exit 1
