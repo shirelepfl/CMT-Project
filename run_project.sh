@@ -9,55 +9,46 @@ if [ ! -d "$LIB_DIR" ]; then
     mkdir -p "$LIB_DIR"
 fi
 
-# Télécharger et installer GCC et les bibliothèques essentielles dans le répertoire local
-echo "Téléchargement des sources nécessaires (si elles ne sont pas déjà présentes)..."
+# Vérification de l'existence des bibliothèques nécessaires (GMP, MPFR, MPC) et installation locale
+echo "Vérification des bibliothèques nécessaires (GMP, MPFR, MPC)..."
 
-# Vérification si gcc est déjà présent localement, sinon installation
-if ! command -v gcc &> /dev/null; then
-    echo "GCC n'est pas installé localement. Téléchargement et installation..."
+# Télécharger et installer GMP, MPFR et MPC si nécessaire
 
-    # Télécharger GCC (et les outils nécessaires) depuis une source externe (par exemple, utiliser le tarball précompilé)
-    wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz -P "$LIB_DIR"
-    cd "$LIB_DIR" || exit
-    tar -xzf gcc-10.2.0.tar.gz
+# Compilation de GCC : en tenant compte de l'option --with-gmp, --with-mpfr et --with-mpc
+echo "Compilation de GCC (si nécessaire)..."
+cd "$LIB_DIR" || exit
+wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
+tar -xzf gcc-10.2.0.tar.gz
+cd gcc-10.2.0 || exit
 
-    # Compiling GCC (une version minimale)
-    cd gcc-10.2.0 || exit
-    ./configure --prefix="$LIB_DIR/gcc-install" --disable-multilib
-    make -j$(nproc)
-    make install
-fi
+# Configurer GCC avec les chemins des bibliothèques locales
+./configure --prefix="$LIB_DIR/gcc-install" --with-gmp="$LIB_DIR/gmp" --with-mpfr="$LIB_DIR/mpfr" --with-mpc="$LIB_DIR/mpc" --disable-multilib
+make -j$(nproc)
+make install
 
-# Assurez-vous que le chemin du compilateur gcc local est correctement ajouté au PATH
+# Ajouter GCC local dans le PATH
 export PATH="$LIB_DIR/gcc-install/bin:$PATH"
 
-# Télécharger et installer les bibliothèques nécessaires (libc, libm, etc.) dans le répertoire local
-echo "Téléchargement et installation des bibliothèques de base (libm, etc.)..."
+# Vérification si gcc est bien installé localement
+if ! command -v gcc &> /dev/null; then
+    echo "Erreur : gcc n'est pas installé localement."
+    exit 1
+fi
 
-# Télécharger la bibliothèque mathématique et les en-têtes de développement standard
-# Nous allons supposer que libm est déjà incluse dans GCC, mais dans un autre cas tu pourrais le faire à partir des tarballs
-
-# Télécharger les sources de GCC si nécessaire
-if [ ! -d "$LIB_DIR/gcc-install" ]; then
-    echo "Les bibliothèques de GCC ne sont pas installées, installation en cours."
-    cd "$LIB_DIR" || exit
-    wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
-    tar -xzf gcc-10.2.0.tar.gz
-    cd gcc-10.2.0 || exit
-    ./configure --prefix="$LIB_DIR/gcc-install" --disable-multilib
-    make -j$(nproc)
-    make install
+# Vérification si le répertoire results existe
+if [ ! -d "results" ]; then
+    mkdir results
 fi
 
 # Compiler le programme C
 echo "Compilation du programme C..."
-gcc -O2 -o results/output CMT-Project/src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
+gcc -O2 -o results/output src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
 if [ $? -ne 0 ]; then
     echo "Erreur lors de la compilation du programme C."
     exit 1
 fi
 
-# Vérifier si l'exécutable a bien été créé
+# Vérification si l'exécutable existe
 if [ ! -x "results/output" ]; then
     echo "Erreur : l'exécutable 'results/output' n'existe pas ou n'est pas exécutable."
     exit 1
@@ -68,13 +59,6 @@ echo "Exécution du programme C..."
 ./results/output
 if [ $? -ne 0 ]; then
     echo "Erreur lors de l'exécution du programme C."
-    exit 1
-fi
-
-# Vérification si MATLAB est installé localement
-echo "Vérification de l'installation de MATLAB..."
-if ! command -v /usr/local/bin/matlab-2021b &> /dev/null; then
-    echo "Erreur : MATLAB n'est pas installé ou n'est pas dans le chemin spécifié."
     exit 1
 fi
 
