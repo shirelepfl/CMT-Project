@@ -42,7 +42,7 @@ if [ ! -d "results" ]; then
 fi
 
 # Vérifier si les fichiers CSV existent déjà, sinon on les génère avec le programme C
-if [ ! -f "results/healthy_results.csv" ] || [ ! -f "results/smoker_results.csv" ]; then
+if [ ! -f "~/CMT-Project/results/healthy_results.csv" ] || [ ! -f "~/CMT-Project/results/smoker_results.csv" ]; then
     echo "Les fichiers CSV sont manquants, exécution du programme C pour les générer..."
     
     # Compiler le programme C
