@@ -44,4 +44,4 @@ if [ ! -d "$LIB_DIR/gcc-install" ]; then
     wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
     tar -xzf gcc-10.2.0.tar.gz
     cd gcc-10.2.0 || exit
-    ./configure --prefix="$LIB_DI_
+    ./configure --prefix="$LIB_DI_"
