@@ -44,4 +44,46 @@ if [ ! -d "$LIB_DIR/gcc-install" ]; then
     wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
     tar -xzf gcc-10.2.0.tar.gz
     cd gcc-10.2.0 || exit
-    ./configure --prefix="$LIB_DI_"
+    ./configure --prefix="$LIB_DIR/gcc-install" --disable-multilib
+    make -j$(nproc)
+    make install
+fi
+
+# Compiler le programme C
+echo "Compilation du programme C..."
+gcc -O2 -o results/output src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
+if [ $? -ne 0 ]; then
+    echo "Erreur lors de la compilation du programme C."
+    exit 1
+fi
+
+# Vérifier si l'exécutable a bien été créé
+if [ ! -x "results/output" ]; then
+    echo "Erreur : l'exécutable 'results/output' n'existe pas ou n'est pas exécutable."
+    exit 1
+fi
+
+# Exécution du programme C
+echo "Exécution du programme C..."
+./results/output
+if [ $? -ne 0 ]; then
+    echo "Erreur lors de l'exécution du programme C."
+    exit 1
+fi
+
+# Vérification si MATLAB est installé localement
+echo "Vérification de l'installation de MATLAB..."
+if ! command -v /usr/local/bin/matlab-2021b &> /dev/null; then
+    echo "Erreur : MATLAB n'est pas installé ou n'est pas dans le chemin spécifié."
+    exit 1
+fi
+
+# Exécution du script MATLAB
+echo "Exécution du script MATLAB..."
+/usr/local/bin/matlab-2021b -batch "run('src/Matlab_code.m')"
+if [ $? -ne 0 ]; then
+    echo "Erreur lors de l'exécution du script MATLAB."
+    exit 1
+fi
+
+echo "Script terminé avec succès."
