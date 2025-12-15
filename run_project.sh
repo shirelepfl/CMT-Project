@@ -42,7 +42,7 @@ fi
 
 # Compiler le programme C
 echo "Compilation du programme C..."
-gcc -O2 -o results/output src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
+gcc -O2 -o results/output ~/src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
 if [ $? -ne 0 ]; then
     echo "Erreur lors de la compilation du programme C."
     exit 1
