@@ -21,7 +21,7 @@ wget -q https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
 tar -xzf gcc-10.2.0.tar.gz
 cd gcc-10.2.0 || exit
 
-# Configurer GCC avec les chemins des bibliothèques locales
+# Compiler GCC avec les bibliothèques locales
 ./configure --prefix="$LIB_DIR/gcc-install" --with-gmp="$LIB_DIR/gmp" --with-mpfr="$LIB_DIR/mpfr" --with-mpc="$LIB_DIR/mpc" --disable-multilib
 make -j$(nproc)
 make install
@@ -62,12 +62,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Exécution du script MATLAB
+# Exécution du script MATLAB (assurer que le chemin vers le fichier Matlab est correct)
 echo "Exécution du script MATLAB..."
-/usr/local/bin/matlab-2021b -batch "run('src/Matlab_code.m')"
+/usr/local/bin/matlab-2021b -batch "run('$HOME/CMT-Project/src/Matlab_code.m')"
 if [ $? -ne 0 ]; then
     echo "Erreur lors de l'exécution du script MATLAB."
     exit 1
 fi
 
 echo "Script terminé avec succès."
+
