@@ -37,29 +37,31 @@ fi
 
 # Vérification si le répertoire results existe
 if [ ! -d "results" ]; then
+    echo "Création du répertoire 'results'..."
     mkdir results
 fi
 
-# Compiler le programme C
-echo "Compilation du programme C..."
-gcc -O2 -o results/output ~/CMT-Project/src/C_code.c -lm -I"$LIB_DIR/gcc-install/include" -L"$LIB_DIR/gcc-install/lib"
-if [ $? -ne 0 ]; then
-    echo "Erreur lors de la compilation du programme C."
-    exit 1
-fi
+# Vérifier si les fichiers CSV existent déjà, sinon on les génère avec le programme C
+if [ ! -f "results/healthy_results.csv" ] || [ ! -f "results/smoker_results.csv" ]; then
+    echo "Les fichiers CSV sont manquants, exécution du programme C pour les générer..."
+    
+    # Compiler le programme C
+    echo "Compilation du programme C..."
+    gcc -O2 -o results/output ~/CMT-Project/src/C_code.c -lm
+    if [ $? -ne 0 ]; then
+        echo "Erreur lors de la compilation du programme C."
+        exit 1
+    fi
 
-# Vérification si l'exécutable existe
-if [ ! -x "results/output" ]; then
-    echo "Erreur : l'exécutable 'results/output' n'existe pas ou n'est pas exécutable."
-    exit 1
-fi
-
-# Exécution du programme C
-echo "Exécution du programme C..."
-./results/output
-if [ $? -ne 0 ]; then
-    echo "Erreur lors de l'exécution du programme C."
-    exit 1
+    # Exécuter le programme C pour générer les fichiers CSV
+    echo "Exécution du programme C..."
+    ./results/output
+    if [ $? -ne 0 ]; then
+        echo "Erreur lors de l'exécution du programme C."
+        exit 1
+    fi
+else
+    echo "Les fichiers CSV existent déjà, pas besoin de les régénérer."
 fi
 
 # Exécution du script MATLAB (assurer que le chemin vers le fichier Matlab est correct)
@@ -71,4 +73,3 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Script terminé avec succès."
-
