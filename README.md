@@ -14,7 +14,7 @@ No external datasets were required. All initial conditions and parameter values 
 
 The C program generates two CSV files, each containing the number of cancer cells at successive time steps (every 5 days over a 120-day period).
 
-The MATLAB script produces a GIF animation showing lung tissue where cells progressively turn red when becoming cancerous. The animations are generated sequentially for both the healthy and smoker scenarios and can be found in MATLAB’s output files (preview mode).
+The MATLAB script produces a GIF animation showing lung tissue where cells progressively turn red when becoming cancerous. The animations are generated sequentially for both the healthy and smoker scenarios and can be found in the src folder.
 
 ### Report
 
