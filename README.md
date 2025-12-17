@@ -43,9 +43,7 @@ The two codes need to be kept in the same folder.
 
 
 ```
-
 git clone https://github.com/shirelepfl/CMT-Project.git
-
 ```
 
 2. Access the folder:
