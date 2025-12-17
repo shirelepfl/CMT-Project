@@ -44,9 +44,9 @@ This project consists of a C simulation (C_code.c) that generates CSV data and a
 
 ```bash
 
-git clone https://github.com/your_username/mon_projet.git
+git clone https://github.com/shirelepfl/CMT-Project.git
 
-cd mon_projet
+cd CMT-Project/src
 
 ```
 
