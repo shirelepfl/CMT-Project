@@ -1,3 +1,5 @@
+MATLAB = matlab 
+
 all: project run matlab
 
 project: C_code.c
@@ -7,7 +9,7 @@ run: project
 	./project
 
 matlab:
-	matlab -batch "run('Matlab_code.m')"
+	$(MATLAB) -batch "run('$(Matlab_code.m)'); exit"
 
 clean:
 	rm -f project
