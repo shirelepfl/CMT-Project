@@ -11,7 +11,7 @@ In our final project, we made a slight departure from the original proposal whil
 
 Have you ever wondered how quickly cancer cells can spread through the lungs? This question inspired us to build a computational model; written in MATLAB and C; that simulates the 3D invasion of lung tissue by tumor cells. By visualizing this progression, we can illustrate what “early growth” looks like and how rapidly it can advance when nothing slows it down.
 
-We chose to focus on lung cancer because it remains one of the leading causes of cancer-related deaths worldwide. Smoking is the primary risk factor: cigarette smoke contains thousands of chemicals, including many well-known carcinogens that damage the DNA of airway cells. Over time, these mutations accumulate and can trigger cancer. The risk isn’t limited to active smokers, secondhand smoke also affects people nearby, and vaping, although often perceived as safer, still exposes the lungs to toxic compounds.
+We chose to focus on lung cancer because it remains the leading cause of cancer-related deaths worldwide[1]. Smoking is the primary risk factor(85% of all cases [1]): cigarette smoke contains thousands of chemicals, including many well-known carcinogens that damage the DNA of airway cells. Over time, these mutations accumulate and can trigger cancer. The risk isn’t limited to active smokers, secondhand smoke also affects people nearby, and vaping, although often perceived as safer, still exposes the lungs to toxic compounds.
 
 Raising awareness about lung cancer, especially among younger people, is crucial. Since smoking is a conscious behavior despite widely known consequences, a visual demonstration can have a stronger impact than statistics or warnings alone. Showing how cancer actually spreads inside the lungs may help make the danger more concrete.
 
@@ -54,7 +54,7 @@ For the healthy person we used:
   
 For each coefficient value, we relied on sources listed in the README file.
 
-For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [1]. 
+For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [2]. 
 
 The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
 
@@ -133,5 +133,6 @@ Our team collaborated closely, meeting for several hours each week. As a result,
 
 # References
 
-[1] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
+[1] https://www.who.int/news-room/fact-sheets/detail/lung-cancer
+[2] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
 The rest of the citations that we mentioned for the approximation made can be found in the README file. 
