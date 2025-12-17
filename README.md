@@ -39,7 +39,9 @@ gcc -Wall C_code.c -o project -lm
 
 This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results. The two codes, thus, need to be kept in the same folder. 
 
-1. Execute the code on MatLab:
+1. Execute the C code (we did it on VS Code), 
+2. Execute the code on MatLab,
+3. Go to the folder in the Finder of the computer and the GIF can be seen (MatLab does not have the import tools for the GIF to be visualised in the app). 
 
 ## Contributors
 
