@@ -11,7 +11,7 @@ In our final project, we made a slight departure from the original proposal whil
 
 Have you ever wondered how quickly cancer cells can spread through the lungs? This question inspired us to build a computational model; written in MATLAB and C; that simulates the 3D invasion of lung tissue by tumor cells. By visualizing this progression, we can illustrate what “early growth” looks like and how rapidly it can advance when nothing slows it down.
 
-We chose to focus on lung cancer because it remains the leading cause of cancer-related deaths worldwide[1]. Smoking is the primary risk factor(85% of all cases [1]): cigarette smoke contains thousands of chemicals, including many well-known carcinogens that damage the DNA of airway cells. Over time, these mutations accumulate and can trigger cancer. The risk isn’t limited to active smokers, secondhand smoke also affects people nearby, and vaping, although often perceived as safer, still exposes the lungs to toxic compounds.
+We chose to focus on lung cancer because it remains the leading cause of cancer-related deaths worldwide [1]. Smoking is the primary risk factor(85% of all cases [1]): cigarette smoke contains thousands of chemicals, including many well-known carcinogens that damage the DNA of airway cells. Over time, these mutations accumulate and can trigger cancer. The risk isn’t limited to active smokers, secondhand smoke also affects people nearby, and vaping, although often perceived as safer, still exposes the lungs to toxic compounds.
 
 Raising awareness about lung cancer, especially among younger people, is crucial. Since smoking is a conscious behavior despite widely known consequences, a visual demonstration can have a stronger impact than statistics or warnings alone. Showing how cancer actually spreads inside the lungs may help make the danger more concrete.
 
@@ -32,13 +32,13 @@ $$
 where n(x,t) represents the density of cancer cells, D is the diffusion coefficient, r the growth rate, and K the carrying capacity.
 Our model is hybrid: the diffusion term is mechanical, representing the physical spread of cells, while the logistic growth term is parametric, capturing empirical aspects of tumor development.
 
-In both scenarios, we start with approximately the same initial number of cancer cells, the smoker starts with a little more cancer cells. The baseline parameters we use are:
+In both scenarios, we started with approximately the same initial number of cancer cells, the smoker started with a little more cancer cells. The baseline parameters we used were:
 - $r_0 = 0.03 \ \text{day}^{-1}$
 - $D_0 = 0.5 \ \text{mm}^2\ \text{day}^{-1}$
 - $K_0 = 10^6 \ \text{cells}\ \text{mm}^{-3}$
 - $\lambda_0 = 0.01 \ \text{day}^{-1}$
 
-Each scenario then applies a lifestyle-dependent coefficient to these baseline values, modifying the evolution of the parameters according to the individual’s habits.
+Each scenario then applied a lifestyle-dependent coefficient to these baseline values, modifying the evolution of the parameters according to the individual’s habits.
 
 For the smoker person we used:
 - $r_0$ * 1.5 :  smoking and chronic inflammation increase reactive-oxygen species and mutation rate which will increase uncontrolled cell division to a factor ~ 50%; 
@@ -56,23 +56,23 @@ For each coefficient value, we relied on sources listed in the README file.
 
 For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [3]. 
 
-The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
+The 3D computational grid contained 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation used a time step of 5 days.
 
-To facilitate our calculations we modeled a Gaussian 3D tumor that starts near the center of our domain, centered in x = L/2. We stated A = $10^5 \ \text{cells}\ \text{mm}^{-3}$ which is a viable maximal density for cells (usually it’s about $10^6$) and sigma = 2 mm, a viable tumor focus. These two values represent well a starting tumor.    
+To facilitate our calculations we modeled a Gaussian 3D tumor that started near the center of our domain, centered in x = L/2. We stated A = $10^5 \ \text{cells}\ \text{mm}^{-3}$ which is a viable maximal density for cells (usually it’s about $10^6$) and sigma = 2 mm, a viable tumor focus. These two values represented well a starting tumor.    
 
 $$
 u(x,0) = A\ e^{-\frac{(x - L/2)^2}{2\sigma^2}}
 $$
 
-We first apply Neumann boundary conditions to obtain a 1D solution of the KPP equation, imposing zero flux at the domain boundaries ($\frac{\delta_u}{\delta_x}=0$) to ensure that the cancer remains confined within the lungs. We then use the IMEX-ADI method, treating the reaction term implicitly–explicitly in each spatial direction, to extend this solution to 3D. Both methods are described in detail in the comments of our C code.
+We first applied Neumann boundary conditions to obtain a 1D solution of the KPP equation, imposing zero flux at the domain boundaries ($\frac{\delta_u}{\delta_x}=0$) to ensure that the cancer remains confined within the lungs. We then used the IMEX-ADI method, treating the reaction term implicitly–explicitly in each spatial direction, to extend this solution to 3D. Both methods are described in detail in the comments of our C code.
 
-The MatLab code begins by creating a 3D mesh representing the lungs, modeled as two ellipsoids for the right and left lungs. These are constructed using the meshgrid function for generating coordinates and mathematical equations for the ellipsoids, with the lung volume being defined by boolean masks (mask_right and mask_left) that identify the points within the lung geometry.
+The MatLab code begined by creating a 3D mesh representing the lungs, modeled as two ellipsoids for the right and left lungs. These are constructed using the meshgrid function for generating coordinates and mathematical equations for the ellipsoids, with the lung volume being defined by boolean masks (mask_right and mask_left) that identify the points within the lung geometry.
 
-Next, the code loads tumor progression data from CSV files containing the number of tumor cells over time for both the healthy individual and the smoker. The readmatrix function is used to extract time steps (t_h, t_s) and tumor cell counts (c_h, c_s) for both cases.
+Next, the code loaded tumor progression data from CSV files containing the number of tumor cells over time for both the healthy individual and the smoker. The readmatrix function was used to extract time steps (t_h, t_s) and tumor cell counts (c_h, c_s) for both cases.
 
-To visualize the tumor growth, the code creates frames at each time step. For each frame, it calculates the number of tumor voxels, in order to make a progression that would be visible yet stay in our domain we had to apply a scale between the size of a 'cell' and the size of our voxels; we used a scale of 14 so 1 voxel is equal to 100 cancer cells. . The save_frame function generates these visualizations by creating a 3D isosurface mesh for the lungs and tumor volume at each time step. The tumor is represented in red, while the lung tissue is drawn with a translucent light pink color. The function also generates and saves each frame as a PNG image and appends these frames to a GIF file that shows the progression of the tumor growth over time.
+To visualize the tumor growth, the code created frames at each time step. For each frame, it calculated the number of tumor voxels. In order to make a progression that would be visible yet stay in our domain we had to apply a scale between the size of a 'cell' and the size of our voxels; we used a scale of 14 so 1 voxel is equal to 100 cancer cells. . The save_frame function generated these visualizations by creating a 3D isosurface mesh for the lungs and tumor volume at each time step. The tumor was represented in red, while the lung tissue was drawn with a translucent light pink color. The function also generated and saved each frame as a PNG image and appended these frames to a GIF file that showed the progression of the tumor growth over time.
 
-The script then saves these images as a series of frames in a specified folder and compiles them into a GIF that shows the evolution of cancer in the lungs over time for both the healthy and smoker cases. The imwrite function is used to compile the images into an animated GIF, where each frame represents a snapshot of the tumor's growth.
+The script then saved these images as a series of frames in a specified folder and compiled them into a GIF that showed the evolution of cancer in the lungs over time for both the healthy and smoker cases. The imwrite function was used to compile the images into an animated GIF, where each frame represented a snapshot of the tumor's growth.
 
 # Results
 
