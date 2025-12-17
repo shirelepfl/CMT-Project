@@ -126,7 +126,3 @@ function save_frame(x,y,z,lungs_val,lung_voxels,Ntumor,step,t,who,folder) % who 
     saveas(fig, filename); % writes the png file 
     close(fig); % deletes the figure from memory 
 end
-
-
-
-
