@@ -31,8 +31,7 @@ On the C code, the libraries that need to be included are: stdio.h, stdlib.h, ma
 The C code is compiled with gcc on Visual Studio Code. To run the C code and the Matlab code, open the src folder from the CMT-Project. 
 
 ```
-gcc -Wall C_code.c -o project -lm
-./project
+gcc -Wall C_code.c -o project -lm && ./project
 ```
 
 ### Execute
