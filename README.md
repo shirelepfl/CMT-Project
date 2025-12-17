@@ -18,7 +18,7 @@ The MATLAB script produces a GIF animation showing lung tissue where cells progr
 
 ### Report
 
-Templates for .tex and .odt formats are provided in "docs/". The formatting can be changed, but the sections should remain the same. The final report should be placed in "docs/" as "report.pdf".
+The report can be found in the docs folder, under the name 'Report.md'. 
 
 ## Running the program
 
@@ -28,32 +28,18 @@ On the C code, the libraries that need to be included are: stdio.h, stdlib.h, ma
 
 ### Build
  
-The C code is compiled with gcc on Visual Studio Code.
+The C code is compiled with gcc on Visual Studio Code. 
 
-gcc- 
+```
+gcc -Wall C_code.c -o project -lm
+./project
+```
 
 ### Execute
 
-This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results.
+This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results. The two codes, thus, need to be kept in the same folder. 
 
-1. Open a terminal and navigate to the project folder:
-
-```bash
-git clone https://github.com/your_username/mon_projet.git
-cd CMT-Project
-```
-
-2. Make the run script executable:
-
-```bash
-chmod u+x run_project.sh
-```
-
-3. Run the project:
-
-```bash
-./run_project.sh
-```
+1. Execute the code on MatLab:
 
 ## Contributors
 
