@@ -31,7 +31,7 @@ On the C code, the libraries that need to be included are: stdio.h, stdlib.h, ma
 The C code is compiled with gcc on Visual Studio Code. 
 
 ```
-gcc -Wall C_code.c -o project -lm
+gcc -Wall src/C_code.c -o project -lm
 ./project
 ```
 
