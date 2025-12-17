@@ -24,7 +24,7 @@ The report can be found in the docs folder, under the name 'Report.md'.
 
 ### Dependencies
 
-On the C code, the libraries that need to be included are: stdio.h, stdlib.h, math.h and string.h. The version of MatLab we used is the one from 2025. 
+On the C code, the libraries that need to be included are: stdio.h, stdlib.h, math.h and string.h. The version of MatLab we used is the one from 2025 (the colors in the visualization are different from the 2021b version). 
 
 ### Build
  
