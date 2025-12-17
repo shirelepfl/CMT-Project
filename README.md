@@ -28,7 +28,7 @@ On the C code, the libraries that need to be included are: stdio.h, stdlib.h, ma
 
 ### Build
  
-The C code is compiled with gcc on Visual Studio Code. To run the C code and the Matlab code, open the src folder from the CMT-Project. 
+The C code is compiled with gcc on Visual Studio Code.
 
 ```
 gcc -Wall C_code.c -o project -lm && ./project
@@ -36,25 +36,30 @@ gcc -Wall C_code.c -o project -lm && ./project
 
 ### Execute
 
-This project consists of a C simulation (C_code.c) that generates CSV data and a MATLAB script (Matlab_code.m) that creates a GIF from the simulation results. The two codes, thus, need to be kept in the same folder. 
+The two codes need to be kept in the same folder. 
 
 
 1. Open a terminal and clone the repository:
 
 
-```bash
+```
 
 git clone https://github.com/shirelepfl/CMT-Project.git
 
-cd CMT-Project/src
-
 ```
 
-2. Execute the project:
+2. Access the folder:
 
-   ```
-   make
-   ```
+```
+cd CMT-Project/src
+```
+
+3. Execute the project:
+
+```
+make
+```
+   
 The output files can be found in the src folder. 
 
 ## Contributors
