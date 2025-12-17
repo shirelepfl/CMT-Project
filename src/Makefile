@@ -7,7 +7,7 @@ run: project
 	./project
 
 matlab:
-	matlab -batch "run('Matlab_code.m'); exit"
+	/usr/local/bin/matlab-2021b -batch "run('Matlab_code.m')"
 
 clean:
 	rm -f project
