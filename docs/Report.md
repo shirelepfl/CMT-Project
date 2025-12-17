@@ -22,7 +22,7 @@ To explore this, we modeled two hypothetical 20-year-old men. One leads a health
 
 # Approach used
 
-We use the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
+We used the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
 
 $$
 \frac{\partial n}{\partial t}
