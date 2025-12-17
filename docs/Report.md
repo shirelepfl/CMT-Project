@@ -115,7 +115,7 @@ By day 60 (t=60), the difference in tumor progression becomes noticeable. The he
 </p>
 
 At day 120 (t=120), the difference is even more pronounced. The smoker’s lung now has 10,401 tumor voxels, compared to 4,616 in the healthy lung. The smoker’s lung contains 2.25 times as many tumor cells.
-
+All of these pictures can be found in the 'images' folder.
 
 From an initial ratio of 1.5x to 2.25x more tumor cells in the smoker, we see a clear, escalating difference. This highlights the far greater progression of tumor growth in the smoker, emphasizing how visualization helps us understand the impact of lifestyle choices on health.
 
