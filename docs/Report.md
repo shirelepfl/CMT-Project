@@ -22,7 +22,7 @@ To explore this, we modeled two hypothetical 20-year-old men. One leads a health
 
 # Approach used
 
-We used the Fisher–Kolmogorov (Fisher-KPP) equation to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
+We used the Fisher–Kolmogorov (Fisher-KPP) equation[2] to model the spatial spreading of cancer cells. This partial differential equation describes how cell density evolves over time and space. It is written as:
 
 $$
 \frac{\partial n}{\partial t}
@@ -54,7 +54,7 @@ For the healthy person we used:
   
 For each coefficient value, we relied on sources listed in the README file.
 
-For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [2]. 
+For our simulation time we chose 4 months so about 120 days; this value corresponds to a good "intermediate growth" time to reach the tumor doubling time [3]. 
 
 The 3D computational grid contains 60 points in each spatial dimension, covering a physical domain of 120 mm in size. The simulation uses a time step of 5 days.
 
@@ -134,5 +134,6 @@ Our team collaborated closely, meeting for several hours each week. As a result,
 # References
 
 [1] https://www.who.int/news-room/fact-sheets/detail/lung-cancer
-[2] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
+[2]https://royalsocietypublishing.org/rspa/article/480/2294/20240186/66750/Fisher-KPP-type-models-of-biological-invasion-open
+[3] https://pubmed.ncbi.nlm.nih.gov/8072198/ 
 The rest of the citations that we mentioned for the approximation made can be found in the README file. 
