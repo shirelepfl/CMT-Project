@@ -376,12 +376,3 @@ void IMEX_ADI_3D(double *restrict u, double *restrict tmp1, double *restrict tmp
         }
     }
 }
-
-
-
-
-
-
-
-
-
